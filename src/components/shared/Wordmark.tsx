@@ -1,28 +1,20 @@
-import { Logo } from "./Logo";
-
 /**
- * Logo + "MHC++" wordmark. The "++" picks up --primary-bright so the brand
- * accent is consistent across nav, footer, and elsewhere.
+ * "MHC++" text wordmark. No logo icon, all white. Used in the nav and
+ * footer. The `size` prop maps to the text size in px so callers can pick
+ * larger/smaller without thinking in Tailwind units.
  */
 type Props = {
   size?: number;
   className?: string;
 };
 
-export function Wordmark({ size = 28, className }: Props) {
+export function Wordmark({ size = 17, className }: Props) {
   return (
-    <span className={`inline-flex items-center gap-3 ${className ?? ""}`}>
-      {/* Soft brand glow behind the logo, matching the mockup nav. */}
-      <span className="relative inline-flex">
-        <Logo size={size} />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -inset-0.5 -z-10 bg-primary opacity-35 blur-md"
-        />
-      </span>
-      <span className="text-[17px] font-bold tracking-[-0.01em]">
-        MHC<span className="text-primary-bright">++</span>
-      </span>
+    <span
+      className={`inline-flex items-center font-bold tracking-[-0.01em] text-fg ${className ?? ""}`}
+      style={{ fontSize: `${size}px` }}
+    >
+      MHC++
     </span>
   );
 }

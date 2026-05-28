@@ -51,7 +51,7 @@
 
 /* Map shadcn's semantic variables onto the MHC++ dark palette. The brand
    tokens (--primary, --border, --font-*) come from tokens.css; the rest are
-   derived here. This is the only theme — dark is the default and only mode. */
+   derived here. This is the only theme: dark is the default and only mode. */
 :root {
   color-scheme: dark;
 

@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Container } from "@/components/shared/Container";
 
 /**
- * Closing "Ready to join the CUNY CS community?" panel — last section on
- * the home page before the footer, anchor target #join.
+ * Closing "Ready to join the CUNY CS community?" panel, the last section
+ * on the home page before the footer. Anchor target #join.
  */
 export function JoinCta() {
   return (
@@ -40,7 +40,7 @@ export function JoinCta() {
           </h2>
           <p className="relative mx-auto mb-9 max-w-[540px] text-base leading-[1.6] text-fg-muted">
             Whatever campus you&apos;re at, whatever year you&apos;re in,
-            whatever you&apos;re building — there&apos;s a place for you here.
+            whatever you&apos;re building, there&apos;s a place for you here.
           </p>
           <Link
             href="/join"

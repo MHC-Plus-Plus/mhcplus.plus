@@ -14,7 +14,7 @@ export function Nav() {
     <nav className="sticky top-0 z-50 border-b border-border bg-bg/75 backdrop-blur-md backdrop-saturate-150">
       <Container className="flex h-[68px] items-center justify-between">
         <Link href="/" aria-label="MHC++ home">
-          <Wordmark />
+          <Wordmark className="text-primary-bright"/>
         </Link>
 
         <ul className="hidden gap-9 md:flex">

@@ -14,7 +14,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border py-12">
       <Container className="flex flex-wrap items-center justify-between gap-6">
-        <Wordmark size={24} />
+        <Wordmark size={15} />
 
         <div className="flex items-center gap-7 text-[13px] text-fg-muted">
           {externalLinks.map((l) => (

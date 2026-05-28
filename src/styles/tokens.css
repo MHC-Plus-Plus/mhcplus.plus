@@ -1,4 +1,4 @@
-/* MHC++ design tokens — see CLAUDE.md. Single source of truth for brand
+/* MHC++ design tokens (see CLAUDE.md). Single source of truth for brand
    colors, fonts, radii, and layout width. Referenced by globals.css @theme
    so they surface as Tailwind utilities, and by shadcn's semantic variables. */
 :root {

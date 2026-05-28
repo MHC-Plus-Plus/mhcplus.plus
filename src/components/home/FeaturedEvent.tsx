@@ -9,6 +9,8 @@ type UpcomingEvent = {
   description: string;
   location: string;
   going: number;
+  /** Cover image URL. Null renders a placeholder block until photos land. */
+  image: string | null;
 };
 
 const placeholderEvents: UpcomingEvent[] = [
@@ -18,8 +20,9 @@ const placeholderEvents: UpcomingEvent[] = [
     title: "Summer Internship Stories",
     description:
       "Members share what they're working on this summer, from quant trading to ML research. Q&A and networking after.",
-    location: "Macaulay Honors",
+    location: "Lecture Hall 304",
     going: 42,
+    image: null,
   },
   {
     dateBadge: "JUN 25",
@@ -27,8 +30,9 @@ const placeholderEvents: UpcomingEvent[] = [
     title: "Resume Review Night",
     description:
       "Bring your resume, leave with feedback from members who've landed offers at top firms. Open to all CUNY CS students.",
-    location: "Macaulay Honors",
+    location: "Seminar Room 2B",
     going: 28,
+    image: null,
   },
   {
     dateBadge: "JUL 10",
@@ -36,8 +40,9 @@ const placeholderEvents: UpcomingEvent[] = [
     title: "Cross-CUNY Mixer",
     description:
       "Meet CS students from every CUNY campus. Pizza, conversation, and maybe a project collaborator or two.",
-    location: "Macaulay Honors",
+    location: "Student Lounge",
     going: 56,
+    image: null,
   },
 ];
 
@@ -68,15 +73,45 @@ export function FeaturedEvent() {
               key={e.title}
               className="group relative flex cursor-pointer flex-col gap-[18px] overflow-hidden rounded-md border border-border bg-bg-card/60 p-6 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-border-bright hover:bg-bg-card-hover/80"
             >
-              {/* top accent line */}
+              {/* top accent line, sits above the cover image */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity group-hover:opacity-100"
+                className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px opacity-0 transition-opacity group-hover:opacity-100"
                 style={{
                   background:
                     "linear-gradient(90deg, transparent, var(--primary), transparent)",
                 }}
               />
+
+              {/* Cover image — full-bleed against the card edges, 16:9.
+                  Renders a placeholder block until real photos are wired. */}
+              <div
+                className="relative -mx-6 -mt-6 aspect-video overflow-hidden border-b border-border bg-bg-elevated"
+                aria-hidden={e.image === null}
+              >
+                {e.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={e.image}
+                    alt={e.title}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "radial-gradient(ellipse at center, rgba(219,51,20,0.10) 0%, transparent 60%)",
+                      }}
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center font-mono text-[11px] uppercase tracking-[0.18em] text-fg-dim">
+                      //&nbsp;&nbsp;Image
+                    </span>
+                  </>
+                )}
+              </div>
+
               <div className="flex items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-fg-subtle">
                 <span className="rounded-sm border border-primary/25 bg-primary/10 px-2.5 py-1 font-mono text-[11px] font-bold tracking-[0.1em] text-primary-bright">
                   {e.dateBadge}

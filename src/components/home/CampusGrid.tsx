@@ -14,7 +14,7 @@ export function CampusGrid() {
             From across the CUNY system.
           </h2>
           <p className="text-base leading-[1.65] text-fg-muted">
-            Our community draws from every kind of CUNY school — senior
+            Our community draws from every kind of CUNY school: senior
             colleges, community colleges, and Macaulay&apos;s cross-campus
             network. Wherever you study CS at CUNY, you belong here.
           </p>

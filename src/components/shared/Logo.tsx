@@ -1,6 +1,6 @@
 /**
  * MHC++ wordmark logo (the square block, not including the "MHC++" type).
- * Uses #DB3314 — the canonical brand red — overriding the #F14323 in the
+ * Uses #DB3314, the canonical brand red, overriding the #F14323 in the
  * source SVG file per CLAUDE.md.
  */
 type Props = {

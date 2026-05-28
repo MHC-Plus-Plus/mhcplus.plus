@@ -4,6 +4,22 @@ import { Container } from "@/components/shared/Container";
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-[140px] pb-[120px] text-center">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-30"
+        style={{
+          backgroundImage: "url('/hero.jpg')",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(10,10,11,0.35) 0%, rgba(10,10,11,0.55) 60%, var(--bg) 100%)",
+        }}
+      />
+
       {/* Brand glow halo behind the headline */}
       <div
         aria-hidden
@@ -14,7 +30,7 @@ export function Hero() {
         }}
       />
 
-      <Container>
+      <Container className="relative z-10">
         <div className="mb-9 inline-flex items-center gap-2.5 rounded-sm border border-primary/25 bg-primary/10 px-3.5 py-1.5 font-mono text-xs font-semibold tracking-[0.08em] text-primary-bright">
           <span
             aria-hidden
@@ -24,17 +40,12 @@ export function Hero() {
         </div>
 
         <h1 className="mb-8 text-[clamp(44px,8vw,92px)] font-extrabold leading-[1.02] tracking-[-0.035em]">
-          Unite CS
-          <br />
-          at CUNY
-          <span className="text-primary-bright [text-shadow:0_0_28px_rgba(255,69,37,0.55)]">
-            ++
-          </span>
+          Uniting CUNY CS
         </h1>
 
         <p className="mx-auto mb-12 max-w-[580px] text-[17px] leading-[1.6] text-fg-muted">
           MHC++ brings together computer science students from across The City
-          University of New York — through career development, mutual growth,
+          University of New York, through career development, mutual growth,
           and lasting connection.
         </p>
 
