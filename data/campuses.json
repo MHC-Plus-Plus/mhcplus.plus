@@ -1,0 +1,11 @@
+[
+  { "name": "Hunter College",   "memberCount": 32 },
+  { "name": "City College",     "memberCount": 28 },
+  { "name": "Queens College",   "memberCount": 24 },
+  { "name": "Brooklyn College", "memberCount": 20 },
+  { "name": "Baruch College",   "memberCount": 18 },
+  { "name": "Lehman College",   "memberCount": 14 },
+  { "name": "Queensborough CC", "memberCount": 9 },
+  { "name": "City Tech",        "memberCount": 8 },
+  { "name": "BMCC",             "memberCount": 5 }
+]
