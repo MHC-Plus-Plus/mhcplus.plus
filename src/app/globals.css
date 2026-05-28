@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../styles/tokens.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* shadcn semantic colors → resolved from the brand tokens below */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* MHC++ brand tokens → Tailwind utilities (bg-bg, text-fg-muted, etc.) */
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --color-border-strong: var(--border-strong);
+  --color-border-bright: var(--border-bright);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-dim: var(--fg-dim);
+  --color-primary-bright: var(--primary-bright);
+  --color-primary-dim: var(--primary-dim);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+
+  --container-page: var(--container);
+}
+
+/* Map shadcn's semantic variables onto the MHC++ dark palette. The brand
+   tokens (--primary, --border, --font-*) come from tokens.css; the rest are
+   derived here. This is the only theme — dark is the default and only mode. */
+:root {
+  color-scheme: dark;
+
+  --background: var(--bg);
+  --foreground: var(--fg);
+  --card: var(--bg-card);
+  --card-foreground: var(--fg);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--fg);
+  --primary-foreground: #ffffff;
+  --secondary: var(--bg-card);
+  --secondary-foreground: var(--fg);
+  --muted: var(--bg-card);
+  --muted-foreground: var(--fg-muted);
+  --accent: var(--bg-card-hover);
+  --accent-foreground: var(--fg);
+  --destructive: var(--primary);
+  --input: var(--border-strong);
+  --ring: var(--primary);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}

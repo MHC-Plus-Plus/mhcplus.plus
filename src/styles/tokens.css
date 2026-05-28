@@ -1,0 +1,31 @@
+/* MHC++ design tokens — see CLAUDE.md. Single source of truth for brand
+   colors, fonts, radii, and layout width. Referenced by globals.css @theme
+   so they surface as Tailwind utilities, and by shadcn's semantic variables. */
+:root {
+  --primary: #DB3314;
+  --primary-bright: #FF4525; /* hover, accent text on dark */
+  --primary-dim: #8A2010;    /* subdued contexts */
+
+  --bg: #0A0A0B;
+  --bg-elevated: #111113;
+  --bg-card: #131316;
+  --bg-card-hover: #18181C;
+
+  --border: #1F1F23;
+  --border-strong: #2A2A30;
+  --border-bright: #3A3A42;
+
+  --fg: #F4F4F5;
+  --fg-muted: #9A9AA3;
+  --fg-subtle: #5E5E66;
+  --fg-dim: #3F3F46;
+
+  /* Font stacks lead with the next/font variables loaded in layout.tsx. */
+  --font-sans: var(--font-urbanist), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'Courier New', monospace;
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+
+  --container: 1180px;
+}
