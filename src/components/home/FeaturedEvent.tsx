@@ -1,52 +1,14 @@
 import Link from "next/link";
 import { Container } from "@/components/shared/Container";
+import {
+  formatDateBadge,
+  formatDayTime,
+  getUpcomingEvents,
+} from "@/lib/events";
 
-// Placeholder events. Replaced in step 5/6 once the MDX loader lands.
-type UpcomingEvent = {
-  dateBadge: string;
-  dayTime: string;
-  title: string;
-  description: string;
-  location: string;
-  going: number;
-  /** Cover image URL. Null renders a placeholder block until photos land. */
-  image: string | null;
-};
+export async function FeaturedEvent() {
+  const events = await getUpcomingEvents(3);
 
-const placeholderEvents: UpcomingEvent[] = [
-  {
-    dateBadge: "JUN 12",
-    dayTime: "Thu · 6:00 PM",
-    title: "Summer Internship Stories",
-    description:
-      "Members share what they're working on this summer, from quant trading to ML research. Q&A and networking after.",
-    location: "Lecture Hall 304",
-    going: 42,
-    image: null,
-  },
-  {
-    dateBadge: "JUN 25",
-    dayTime: "Wed · 5:30 PM",
-    title: "Resume Review Night",
-    description:
-      "Bring your resume, leave with feedback from members who've landed offers at top firms. Open to all CUNY CS students.",
-    location: "Seminar Room 2B",
-    going: 28,
-    image: null,
-  },
-  {
-    dateBadge: "JUL 10",
-    dayTime: "Thu · 6:00 PM",
-    title: "Cross-CUNY Mixer",
-    description:
-      "Meet CS students from every CUNY campus. Pizza, conversation, and maybe a project collaborator or two.",
-    location: "Student Lounge",
-    going: 56,
-    image: null,
-  },
-];
-
-export function FeaturedEvent() {
   return (
     <section id="events" className="border-t border-border py-[120px]">
       <Container>
@@ -67,11 +29,20 @@ export function FeaturedEvent() {
           </Link>
         </div>
 
+        {events.length === 0 && (
+          <p className="rounded-md border border-border bg-bg-card/60 p-6 text-fg-muted">
+            No upcoming events right now. Check back soon.
+          </p>
+        )}
+
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          {placeholderEvents.map((e) => (
-            <article
-              key={e.title}
-              className="group relative flex cursor-pointer flex-col gap-[18px] overflow-hidden rounded-md border border-border bg-bg-card/60 p-6 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-border-bright hover:bg-bg-card-hover/80"
+          {events.map((e) => (
+            <a
+              key={e.id}
+              href={e.url || "/events"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col gap-[18px] overflow-hidden rounded-md border border-border bg-bg-card/60 p-6 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-border-bright hover:bg-bg-card-hover/80"
             >
               {/* top accent line, sits above the cover image */}
               <span
@@ -83,16 +54,16 @@ export function FeaturedEvent() {
                 }}
               />
 
-              {/* Cover image — full-bleed against the card edges, 16:9.
-                  Renders a placeholder block until real photos are wired. */}
+              {/* Cover image: full-bleed against the card edges, 16:9.
+                  Scraped from the CampusGroups event page; placeholder when it has none. */}
               <div
                 className="relative -mx-6 -mt-6 aspect-video overflow-hidden border-b border-border bg-bg-elevated"
-                aria-hidden={e.image === null}
+                aria-hidden={e.coverImage === null}
               >
-                {e.image ? (
+                {e.coverImage ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={e.image}
+                    src={e.coverImage}
                     alt={e.title}
                     className="h-full w-full object-cover"
                   />
@@ -106,7 +77,7 @@ export function FeaturedEvent() {
                       }}
                     />
                     <span className="absolute inset-0 flex items-center justify-center font-mono text-[11px] uppercase tracking-[0.18em] text-fg-dim">
-                      //&nbsp;&nbsp;Image
+                      {"//"}&nbsp;&nbsp;Image
                     </span>
                   </>
                 )}
@@ -114,27 +85,29 @@ export function FeaturedEvent() {
 
               <div className="flex items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-fg-subtle">
                 <span className="rounded-sm border border-primary/25 bg-primary/10 px-2.5 py-1 font-mono text-[11px] font-bold tracking-[0.1em] text-primary-bright">
-                  {e.dateBadge}
+                  {formatDateBadge(e)}
                 </span>
-                <span>{e.dayTime}</span>
+                <span>{formatDayTime(e)}</span>
               </div>
               <div>
                 <h3 className="text-xl font-bold leading-[1.25] tracking-[-0.015em]">
                   {e.title}
                 </h3>
-                <p className="mt-2.5 flex-grow text-sm leading-[1.6] text-fg-muted">
+                <p className="mt-2.5 line-clamp-3 flex-grow text-sm leading-[1.6] text-fg-muted">
                   {e.description}
                 </p>
               </div>
               <div className="flex items-center gap-5 border-t border-border pt-[18px] font-mono text-xs text-fg-subtle">
-                <span className="flex items-center gap-1.5 before:h-[3px] before:w-[3px] before:bg-fg-subtle before:content-['']">
-                  {e.location}
-                </span>
-                <span className="flex items-center gap-1.5 before:h-[3px] before:w-[3px] before:bg-fg-subtle before:content-['']">
-                  {e.going} going
+                {e.location && (
+                  <span className="flex items-center gap-1.5 before:h-[3px] before:w-[3px] before:bg-fg-subtle before:content-['']">
+                    {e.location}
+                  </span>
+                )}
+                <span className="flex items-center gap-1.5 text-primary-bright before:h-[3px] before:w-[3px] before:bg-primary-bright before:content-['']">
+                  RSVP on CampusGroups
                 </span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </Container>

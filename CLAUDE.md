@@ -18,7 +18,7 @@ We are currently building **v1**: a public, static, content-driven Next.js site.
 
 - **Next.js** (App Router) + **TypeScript**
 - **Tailwind CSS** + **shadcn/ui**
-- **MDX** for content (events, team, sponsors, about copy)
+- **MDX** for content (team, sponsors, about copy). Events come from the CampusGroups ICS feed instead.
 - **`src/` directory** — yes, use `src/app/`, `src/components/`, etc.
 - **Vercel** for hosting (free tier, spend limit configured)
 - **Porkbun** for domain (`mhcplus.plus`)
@@ -86,7 +86,7 @@ src/
 │   ├── shared/   # Button, Section, MarkdownContent, Badge
 │   └── ui/       # shadcn-generated
 ├── lib/
-│   ├── content.ts    # MDX loaders
+│   ├── content.ts    # MDX loaders (team, about, sponsors)
 │   ├── events.ts     # Event-specific helpers
 │   ├── types.ts      # Event, TeamMember, Sponsor, Campus
 │   └── utils.ts
@@ -94,7 +94,6 @@ src/
 │   ├── globals.css   # Tailwind directives + base
 │   └── tokens.css    # CSS custom properties
 content/
-├── events/       # One MDX file per event, filename prefixed with date
 ├── team/         # One MDX file per eboard member
 ├── sponsors/
 │   └── pitch.mdx
@@ -121,20 +120,9 @@ public/
 
 ## Content conventions
 
-- **Event MDX files** named `YYYY-MM-DD-slug.mdx` (e.g. `2026-03-15-spring-hackathon.mdx`)
-- Frontmatter shape (TypeScript type lives in `src/lib/types.ts`):
-  ```yaml
-  ---
-  title: "Spring Hackathon Kickoff"
-  date: 2026-03-15
-  time: "6:00 PM"
-  location: "Macaulay Honors College"
-  description: "Brief one-line description for cards."
-  coverImage: "https://res.cloudinary.com/..."
-  campusGroupsUrl: "https://campusgroups.com/..."
-  galleryUrl: "https://photos.app.goo.gl/..."  # optional, for past events
-  ---
-  ```
+- **Events come from the CampusGroups ICS feed, not MDX.** See `src/lib/events.ts` (feed URL is `EVENTS_FEED_URL`). It's fetched server-side and revalidated hourly. There is no `content/events/`.
+- Cover images are scraped from each event's CampusGroups RSVP page (`og:image`); the club-logo fallback is ignored. To get a cover on the site, upload it on the event in CampusGroups.
+- The feed hides event location from anonymous fetches, so cards say "Location on CampusGroups". Put the location in the event description if it matters.
 - **Photos** never go in the repo. Host on Cloudinary (or similar) and reference by URL. Repo stays small, no binary bloat.
 
 ## Build order
@@ -146,7 +134,7 @@ v1 implementation should proceed in this order — finish each step before movin
 3. Layout shell: `layout.tsx`, Nav, Footer, base styles, dark mode as default.
 4. Home page: Hero, Stats, CampusGrid, FeaturedEvent placeholder, SponsorStrip. Match `mockup.html` aesthetic.
 5. Content infrastructure: `lib/content.ts`, types, MDX setup with `next-mdx-remote` or built-in MDX support.
-6. Events page: EventCard with inline expansion (per design decisions in chat history), reading from MDX files. Include 3 sample MDX events to verify rendering.
+6. Events page: EventCard with inline expansion, reading from the CampusGroups ICS feed. **Done.**
 7. Other pages: About (MDX-driven), Team (MDX per member), Sponsors, Join, RSVP Help.
 8. Polish: metadata, OG image, 404 page, favicons, mobile QA.
 
@@ -169,8 +157,8 @@ If asked to add any of these, push back and confirm — they are v2:
 These were debated during planning and decided. Don't propose alternatives without explicit reason:
 
 - **CampusGroups is the only RSVP system.** The site links out to CampusGroups for RSVPs; we do not build a parallel RSVP form.
-- **Events use cards with inline expansion**, not per-event detail pages. Each event is still an MDX file, but the body renders as expanded content on the events page, not on its own route.
-- **No `/events/[slug]` routes** in v1. MDX files exist, but only the `/events` page reads them.
+- **Events use cards with inline expansion**, not per-event detail pages. The expanded content (the feed description) renders on the events page, not on its own route.
+- **No `/events/[slug]` routes** in v1. Only the home page and `/events` read event data.
 - **Membership stats are a JSON file** updated manually. No CampusGroups API integration.
 - **Dark mode is the default and only mode** for now. We're not building a light/dark toggle.
 
