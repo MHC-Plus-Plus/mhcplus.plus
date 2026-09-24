@@ -43,9 +43,9 @@ export function CampusGrid() {
         </div>
 
         <p className="mt-10 text-center text-sm text-fg-muted">
-          Don&apos;t see your campus?{" "}
+          And more, 
           <Link href="/join" className="font-semibold text-primary-bright">
-            Be the first ++
+              join us!
           </Link>
         </p>
       </Container>
