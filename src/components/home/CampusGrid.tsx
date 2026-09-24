@@ -43,10 +43,7 @@ export function CampusGrid() {
         </div>
 
         <p className="mt-10 text-center text-sm text-fg-muted">
-          And more, 
-          <Link href="/join" className="font-semibold text-primary-bright">
-              join us!
-          </Link>
+          And more, <Link href="/join" className="font-semibold text-primary-bright"> join us! </Link>
         </p>
       </Container>
     </section>
