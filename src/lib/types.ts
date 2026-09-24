@@ -15,3 +15,19 @@ export type CalendarEvent = {
   /** From the RSVP page's og:image. Null renders a placeholder block. */
   coverImage: string | null;
 };
+
+export type TeamMember = {
+  /** MDX filename without extension. */
+  slug: string;
+  name: string;
+  role: string;
+  campus: string | null;
+  /** Hosted URL (Cloudinary etc.). Null renders initials. */
+  photo: string | null;
+  linkedin: string | null;
+  github: string | null;
+  /** Lower comes first. Ties fall back to name. */
+  order: number;
+  /** MDX body, plain paragraphs. */
+  bio: string;
+};

@@ -1,0 +1,11 @@
+---
+name: Jane Doe
+role: President
+campus: Hunter College
+photo: https://res.cloudinary.com/.../jane.jpg
+linkedin: https://linkedin.com/in/janedoe
+github: https://github.com/janedoe
+order: 1
+---
+
+Short bio here. Blank line = new paragraph.
