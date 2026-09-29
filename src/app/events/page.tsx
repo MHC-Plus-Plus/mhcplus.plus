@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/shared/Container";
 import { EventCard } from "@/components/events/EventCard";
 import { getPastEvents, getUpcomingEvents } from "@/lib/events";
@@ -48,9 +49,17 @@ export default async function EventsPage() {
 
       {past.length > 0 && (
         <section className="mt-16" aria-labelledby="past">
-          <h2 id="past" className="mb-6 text-2xl font-bold tracking-[-0.02em]">
-            Past events
-          </h2>
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <h2 id="past" className="text-2xl font-bold tracking-[-0.02em]">
+              Past events
+            </h2>
+            <Link
+              href="/highlights"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-primary-bright"
+            >
+              See highlights <span aria-hidden>→</span>
+            </Link>
+          </div>
           <div className="flex flex-col gap-3">
             {past.map((e) => (
               <EventCard key={e.id} event={e} past />

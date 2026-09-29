@@ -1,0 +1,10 @@
+---
+title: Intro to Git Workshop
+date: 2026-09-12
+cover: https://res.cloudinary.com/.../cover.jpg
+photos: https://res.cloudinary.com/.../1.jpg, https://res.cloudinary.com/.../2.jpg
+attendance: 45
+event: https://macaulay.campusgroups.com/rsvp_boot?id=...
+---
+
+One or two sentences on how it went. Blank line = new paragraph.

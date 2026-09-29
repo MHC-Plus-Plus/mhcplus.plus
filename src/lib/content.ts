@@ -1,8 +1,10 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import type { TeamMember } from "@/lib/types";
+import type { Highlight, Page, TeamMember } from "@/lib/types";
 
-const TEAM_DIR = path.join(process.cwd(), "content", "team");
+const CONTENT_DIR = path.join(process.cwd(), "content");
+const TEAM_DIR = path.join(CONTENT_DIR, "team");
+const HIGHLIGHTS_DIR = path.join(CONTENT_DIR, "highlights");
 
 /**
  * Splits `---` frontmatter from the body. Supports flat `key: value` lines
@@ -59,4 +61,54 @@ export async function getTeam(): Promise<TeamMember[]> {
   return members
     .filter((m): m is TeamMember => m !== null)
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
+}
+
+/** A single page from content/pages/<slug>.mdx, or null if missing. */
+export async function getPage(slug: string): Promise<Page | null> {
+  try {
+    const raw = await fs.readFile(path.join(CONTENT_DIR, "pages", `${slug}.mdx`), "utf8");
+    const { data, body } = parseFrontmatter(raw);
+    return { slug, meta: data, body };
+  } catch {
+    return null;
+  }
+}
+
+/** All highlights from content/highlights/*.mdx, newest first. */
+export async function getHighlights(): Promise<Highlight[]> {
+  let files: string[];
+  try {
+    files = await fs.readdir(HIGHLIGHTS_DIR);
+  } catch {
+    return [];
+  }
+
+  const items = await Promise.all(
+    files
+      .filter((f) => /\.mdx?$/.test(f))
+      .map(async (file): Promise<Highlight | null> => {
+        const { data, body } = parseFrontmatter(
+          await fs.readFile(path.join(HIGHLIGHTS_DIR, file), "utf8"),
+        );
+        if (!data.title || !data.date) {
+          console.warn(`content/highlights/${file}: missing title or date, skipping`);
+          return null;
+        }
+        const attendance = Number(data.attendance);
+        return {
+          slug: file.replace(/\.mdx?$/, ""),
+          title: data.title,
+          date: data.date,
+          cover: data.cover || null,
+          photos: (data.photos ?? "").split(",").map((u) => u.trim()).filter(Boolean),
+          attendance: data.attendance && Number.isFinite(attendance) ? attendance : null,
+          event: data.event || null,
+          recap: body,
+        };
+      }),
+  );
+
+  return items
+    .filter((h): h is Highlight => h !== null)
+    .sort((a, b) => b.date.localeCompare(a.date));
 }

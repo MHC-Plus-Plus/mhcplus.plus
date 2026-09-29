@@ -31,3 +31,26 @@ export type TeamMember = {
   /** MDX body, plain paragraphs. */
   bio: string;
 };
+
+export type Page = {
+  slug: string;
+  /** Flat frontmatter values, as written. */
+  meta: Record<string, string>;
+  body: string;
+};
+
+export type Highlight = {
+  slug: string;
+  title: string;
+  /** ISO date (YYYY-MM-DD). */
+  date: string;
+  /** Hosted URL. Null renders a placeholder block. */
+  cover: string | null;
+  /** Hosted URLs. */
+  photos: string[];
+  attendance: number | null;
+  /** CampusGroups event page, if any. */
+  event: string | null;
+  /** MDX body, plain paragraphs. */
+  recap: string;
+};
