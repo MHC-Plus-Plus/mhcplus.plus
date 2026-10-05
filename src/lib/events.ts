@@ -92,6 +92,13 @@ export function parseIcs(ics: string): CalendarEvent[] {
       const start = props.has("DTSTART") ? parseDate(props.get("DTSTART")!.value) : null;
       const uid = props.get("UID")?.value;
       const title = props.has("SUMMARY") ? textValue(props.get("SUMMARY")!) : "";
+      // Every event has several CATEGORIES lines, so the Map above keeps only one.
+      const cgType = current
+        .find(
+          (p) =>
+            p.name === "CATEGORIES" && p.params["X-CG-CATEGORY"]?.startsWith("event_type:"),
+        )
+        ?.params["X-CG-CATEGORY"].slice("event_type:".length);
       if (start && uid && title) {
         events.push({
           id: uid,
@@ -106,6 +113,7 @@ export function parseIcs(ics: string): CalendarEvent[] {
             : "",
           url: props.get("URL")?.value ?? "",
           coverImage: null,
+          eventType: cgType && cgType.toLowerCase() !== "other" ? cgType.toLowerCase() : null,
         });
       }
       current = null;
@@ -172,6 +180,15 @@ export async function getUpcomingEvents(limit?: number): Promise<CalendarEvent[]
 export async function getPastEvents(): Promise<CalendarEvent[]> {
   const now = Date.now();
   return (await getEvents()).filter((e) => isPast(e, now)).reverse();
+}
+
+/** CampusGroups numeric event id from the RSVP url, e.g. "2140182". Used in /feedback/[id]. */
+export function rsvpId(event: CalendarEvent): string | null {
+  return /[?&]id=(\d+)/.exec(event.url)?.[1] ?? null;
+}
+
+export async function getPastEventByRsvpId(id: string): Promise<CalendarEvent | null> {
+  return (await getPastEvents()).find((e) => rsvpId(e) === id) ?? null;
 }
 
 const badgeMonth = new Intl.DateTimeFormat("en-US", { timeZone: TIME_ZONE, month: "short" });

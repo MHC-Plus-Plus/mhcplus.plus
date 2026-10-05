@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { MarkdownContent } from "@/components/shared/MarkdownContent";
-import { formatDateBadge, formatDayTime } from "@/lib/events";
+import { formatDateBadge, formatDayTime, rsvpId } from "@/lib/events";
 import type { CalendarEvent } from "@/lib/types";
 
 /**
@@ -87,6 +88,14 @@ export function EventCard({ event, past = false }: Props) {
           >
             RSVP on CampusGroups <span aria-hidden>→</span>
           </a>
+        )}
+        {past && rsvpId(event) && (
+          <Link
+            href={`/feedback/${rsvpId(event)}`}
+            className="inline-flex items-center gap-2 rounded-sm border border-border-strong px-5 py-3 text-sm font-semibold text-fg transition-colors hover:border-primary hover:text-primary-bright"
+          >
+            Give feedback <span aria-hidden>→</span>
+          </Link>
         )}
       </div>
     </details>

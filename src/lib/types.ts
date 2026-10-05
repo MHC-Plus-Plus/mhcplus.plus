@@ -14,6 +14,8 @@ export type CalendarEvent = {
   url: string;
   /** From the RSVP page's og:image. Null renders a placeholder block. */
   coverImage: string | null;
+  /** Lowercased CampusGroups event type. Null when unset ("Other"). */
+  eventType: string | null;
 };
 
 export type TeamMember = {
