@@ -32,7 +32,7 @@ export default async function AboutPage() {
         <section id="team" className="mt-24" aria-labelledby="eboard">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <h2 id="eboard" className="text-2xl font-bold tracking-[-0.02em]">
-              Meet the eboard
+              Meet the E-board
             </h2>
             <Link
               href="/team"
