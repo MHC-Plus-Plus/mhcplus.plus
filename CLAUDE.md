@@ -18,7 +18,7 @@ We are currently building **v1**: a public, static, content-driven Next.js site.
 
 - **Next.js** (App Router) + **TypeScript**
 - **Tailwind CSS** + **shadcn/ui**
-- **MDX** for content (team, sponsors, about copy). Events come from the CampusGroups ICS feed instead.
+- **MDX** for content (team, sponsors, page copy). Events come from the CampusGroups ICS feed instead.
 - **`src/` directory** — yes, use `src/app/`, `src/components/`, etc.
 - **Vercel** for hosting (free tier, spend limit configured)
 - **Porkbun** for domain (`mhcplus.plus`)
@@ -69,7 +69,6 @@ src/
 ├── app/
 │   ├── layout.tsx
 │   ├── page.tsx                  # Home
-│   ├── about/page.tsx
 │   ├── events/page.tsx
 │   ├── team/page.tsx
 │   ├── sponsors/page.tsx
@@ -86,7 +85,7 @@ src/
 │   ├── shared/   # Button, Section, MarkdownContent, Badge
 │   └── ui/       # shadcn-generated
 ├── lib/
-│   ├── content.ts    # MDX loaders (team, about, sponsors)
+│   ├── content.ts    # MDX loaders (team, pages, sponsors)
 │   ├── events.ts     # Event-specific helpers
 │   ├── types.ts      # Event, TeamMember, Sponsor, Campus
 │   └── utils.ts
@@ -98,7 +97,7 @@ content/
 ├── sponsors/
 │   └── pitch.mdx
 └── pages/
-    └── about.mdx
+    └── hackathon.mdx
 data/
 ├── stats.json    # Membership counts, manually updated
 ├── campuses.json # CUNY campus list with member counts
@@ -135,7 +134,7 @@ v1 implementation should proceed in this order — finish each step before movin
 4. Home page: Hero, Stats, CampusGrid, FeaturedEvent placeholder, SponsorStrip. Match `mockup.html` aesthetic.
 5. Content infrastructure: `lib/content.ts`, types, MDX setup with `next-mdx-remote` or built-in MDX support.
 6. Events page: EventCard with inline expansion, reading from the CampusGroups ICS feed. **Done.**
-7. Other pages: About (MDX-driven), Team (MDX per member), Sponsors, Join, RSVP Help.
+7. Other pages: Team (MDX per member), Sponsors, Join, RSVP Help.
 8. Polish: metadata, OG image, 404 page, favicons, mobile QA.
 
 Each step should produce a working, deployable site. Do not skip ahead.
