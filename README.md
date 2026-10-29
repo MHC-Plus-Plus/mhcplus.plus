@@ -21,7 +21,6 @@ The site has two primary audiences:
 **Pages**
 
 - **Home**: hero, mission, map of CUNY campuses, key stats, upcoming event highlight, calls to action.
-- **About**: origin story, the inter-CUNY mission, why we exist.
 - **Events**: view upcoming and past events
 - **Team**: current eboard with bios, campuses, and headshots
 - **Sponsors & Partners**: pitch for prospective sponsors, current/past partners, contact
