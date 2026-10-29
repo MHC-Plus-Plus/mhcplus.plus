@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Urbanist, JetBrains_Mono } from "next/font/google";
+import { TodayTicker } from "@/components/layout/TodayTicker";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
@@ -45,6 +46,9 @@ export default function RootLayout({
             backgroundSize: "48px 48px",
           }}
         />
+        <div className="relative z-[1]">
+          <TodayTicker />
+        </div>
         <Nav />
         <main className="relative z-[1] flex-1">{children}</main>
         <Footer />

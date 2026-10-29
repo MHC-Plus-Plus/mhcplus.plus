@@ -84,3 +84,28 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 }
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: ticker var(--duration, 30s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-viewport {
+    overflow-x: auto !important;
+  }
+  .ticker-track {
+    animation: none !important;
+  }
+  .ticker-track > [aria-hidden="true"] {
+    display: none !important;
+  }
+}

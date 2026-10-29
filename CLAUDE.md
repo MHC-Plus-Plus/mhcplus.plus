@@ -79,7 +79,7 @@ src/
 │   └── globals.css
 ├── components/
 │   ├── layout/   # Nav, Footer, Container
-│   ├── home/     # Hero, CampusGrid, StatsBlock, FeaturedEvent, SponsorStrip
+│   ├── home/     # Hero, CampusGrid, StatsBlock, FeaturedEvent
 │   ├── events/   # EventList, EventCard, EventCardExpanded, EventMeta
 │   ├── team/
 │   ├── sponsors/
@@ -132,7 +132,7 @@ v1 implementation should proceed in this order — finish each step before movin
 1. Project init: Next.js, TypeScript, Tailwind, shadcn/ui setup. Verify dev server runs.
 2. Design tokens: `tokens.css`, Tailwind config extending with these tokens, fonts loaded (Google Fonts for Urbanist and JetBrains Mono).
 3. Layout shell: `layout.tsx`, Nav, Footer, base styles, dark mode as default.
-4. Home page: Hero, Stats, CampusGrid, FeaturedEvent placeholder, SponsorStrip. Match `mockup.html` aesthetic.
+4. Home page: Hero, Stats, CampusGrid, FeaturedEvent placeholder. Match `mockup.html` aesthetic.
 5. Content infrastructure: `lib/content.ts`, types, MDX setup with `next-mdx-remote` or built-in MDX support.
 6. Events page: EventCard with inline expansion, reading from the CampusGroups ICS feed. **Done.**
 7. Other pages: About (MDX-driven), Team (MDX per member), Sponsors, Join, RSVP Help.

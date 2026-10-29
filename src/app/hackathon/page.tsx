@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/shared/Container";
 import { MarkdownContent } from "@/components/shared/MarkdownContent";
 import { getPage } from "@/lib/content";
-import { HACKATHON_REGISTER_URL, SPONSOR_PACKET_URL } from "@/lib/links";
+import { SPONSOR_PACKET_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
   title: "HackMHC++ · MHC++",
@@ -38,17 +38,12 @@ export default async function HackathonPage() {
       </dl>
 
       {!past && (
-        <a
-          href={meta.register || HACKATHON_REGISTER_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-10 group inline-flex items-center gap-2.5 rounded-sm border border-primary bg-primary px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_0_0_1px_var(--primary),0_0_24px_-4px_var(--primary),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all hover:-translate-y-px hover:bg-primary-bright hover:shadow-[0_0_0_1px_var(--primary-bright),0_0_40px_-4px_var(--primary-bright),inset_0_1px_0_rgba(255,255,255,0.2)]"
+        <span
+          aria-disabled="true"
+          className="mt-10 inline-flex cursor-not-allowed items-center rounded-sm border border-border-strong bg-bg-card px-6 py-3.5 text-[15px] font-semibold text-fg-subtle"
         >
-          Register on CampusGroups
-          <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
-            →
-          </span>
-        </a>
+          Registration opens in the spring
+        </span>
       )}
 
       {page && (

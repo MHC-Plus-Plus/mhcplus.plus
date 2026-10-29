@@ -211,3 +211,53 @@ export function formatDayTime(event: CalendarEvent): string {
   const d = new Date(event.start);
   return `${weekday.format(d)} · ${clock.format(d)}`;
 }
+
+/** Dev-only fixture so the TODAY ticker is visible under `npm run dev`. Never shipped to prod. */
+function devTestEvent(now: Date): CalendarEvent {
+  const start = new Date(now.getTime() - 60 * 60 * 1000);
+  const end = new Date(now.getTime() + 60 * 60 * 1000);
+  return {
+    id: "dev-test-event",
+    title: "Test Event (dev only)",
+    start: start.toISOString(),
+    end: end.toISOString(),
+    location: null,
+    description: "",
+    url: "",
+    coverImage: null,
+    eventType: null,
+  };
+}
+
+export async function getTodaysEvents(): Promise<CalendarEvent[]> {
+  const now = new Date();
+  const nowMs = now.getTime();
+  const feed = await getFeedEvents();
+  const events =
+    process.env.NODE_ENV === "development" ? [...feed, devTestEvent(now)] : feed;
+  
+  const ymdFormatter = new Intl.DateTimeFormat("en-US", { timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit" });
+  const formatYMD = (d: Date) => {
+    const parts = ymdFormatter.formatToParts(d);
+    const y = parts.find((p) => p.type === "year")!.value;
+    const m = parts.find((p) => p.type === "month")!.value;
+    const day = parts.find((p) => p.type === "day")!.value;
+    return `${y}-${m}-${day}`;
+  };
+  
+  const todayYMD = formatYMD(now);
+  
+  return events.filter((e) => {
+    const endDate = new Date(e.end ?? e.start);
+    if (endDate.getTime() <= nowMs) return false; // already ended
+    
+    const startDate = new Date(e.start);
+    // Subtract 1ms so an end exactly at midnight NY time falls on the previous day
+    const adjustedEndDate = new Date(endDate.getTime() - 1);
+    
+    const startYMD = formatYMD(startDate);
+    const endYMD = formatYMD(adjustedEndDate);
+    
+    return todayYMD >= startYMD && todayYMD <= endYMD;
+  });
+}
