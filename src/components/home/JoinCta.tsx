@@ -16,15 +16,6 @@ export function JoinCta() {
               "linear-gradient(180deg, rgba(17,17,19,0.7) 0%, rgba(19,19,22,0.7) 100%)",
           }}
         >
-          {/* top glow */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-[-100px] h-[400px] w-[600px] -translate-x-1/2 blur-[40px]"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(219,51,20,0.2) 0%, transparent 70%)",
-            }}
-          />
           {/* watermark "++" */}
           <div
             aria-hidden

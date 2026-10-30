@@ -3,7 +3,7 @@ import { Container } from "@/components/shared/Container";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-[140px] pb-[120px] text-center">
+    <section className="relative flex min-h-[72svh] flex-col justify-center overflow-hidden pt-[140px] pb-[120px] text-center">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-30"
@@ -58,12 +58,6 @@ export function Hero() {
             <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
               →
             </span>
-          </Link>
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2.5 rounded-sm border border-border-strong bg-transparent px-6 py-3.5 text-[15px] font-semibold text-fg transition-colors hover:border-border-bright hover:bg-bg-card"
-          >
-            See upcoming events
           </Link>
         </div>
       </Container>
