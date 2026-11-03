@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Container } from "@/components/shared/Container";
 import { MarkdownContent } from "@/components/shared/MarkdownContent";
 import { getPage } from "@/lib/content";
-import { SPONSOR_PACKET_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
   title: "HackMHC++ · MHC++",
@@ -51,26 +50,6 @@ export default async function HackathonPage() {
           <MarkdownContent>{page.body}</MarkdownContent>
         </div>
       )}
-
-      <section
-        className="mt-20 rounded-md border border-border-strong bg-bg-card/60 p-8 backdrop-blur-sm"
-        aria-labelledby="sponsor"
-      >
-        <h2 id="sponsor" className="text-2xl font-bold tracking-[-0.02em]">
-          Sponsor HackMHC++
-        </h2>
-        <p className="mt-3 max-w-[560px] text-fg-muted">
-          Reach CS students across all of CUNY. Our sponsor packet has the details.
-        </p>
-        <a
-          href={SPONSOR_PACKET_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-bright"
-        >
-          View the sponsor packet <span aria-hidden>→</span>
-        </a>
-      </section>
     </Container>
   );
 }
