@@ -120,9 +120,20 @@ public/
 ## Content conventions
 
 - **Events come from the CampusGroups ICS feed, not MDX.** See `src/lib/events.ts` (feed URL is `EVENTS_FEED_URL`). It's fetched server-side and revalidated hourly. There is no `content/events/`.
-- Cover images are scraped from each event's CampusGroups RSVP page (`og:image`); the club-logo fallback is ignored. To get a cover on the site, upload it on the event in CampusGroups.
+- Cover priority: custom upload (admin, `event_covers` table, keyed by CampusGroups event id) → scraped `og:image` from the RSVP page (club-logo fallback ignored) → placeholder. The scraped image can vanish, so upload a custom cover for events that matter.
 - The feed hides event location from anonymous fetches, so cards say "Location on CampusGroups". Put the location in the event description if it matters.
 - **Photos** never go in the repo. Host on Cloudinary (or similar) and reference by URL. Repo stays small, no binary bloat.
+
+## Admin and Supabase
+
+- `/admin/*` shows the Google sign-in button when signed out; non-admin accounts see "Not authorized". Pages: `/admin/opportunities`, `/admin/covers` (per-event cover upload and event-type override; the override replaces the CampusGroups type and feeds the feedback form).
+- **RLS is the security boundary**, not the UI. Anyone can read; only emails in the `admins` table can write (`is_admin()` in `supabase/migrations/0001_admin.sql`). Add an officer with `insert into public.admins values ('email@example.com');` (lowercase).
+- Every new table or storage bucket **must** enable RLS with explicit policies. After any schema change run `scripts/check-rls.sh` (anon key must be unable to write).
+- Env: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. No service-role key anywhere; writes run as the signed-in user.
+- Public pages use `publicClient()` (cookie-less) so they stay static/ISR; session-aware `createSupabaseServerClient()` is for admin only. Server actions must call `requireAdmin()`.
+- `src/lib/opportunity-meta.ts` is client-safe; `src/lib/opportunities.ts` (loader) is server-only. Don't import the loader from client components.
+- Opportunities page (`/opportunities`) is a feed: category chips, deadlines, expired posts hidden automatically.
+- Opportunities can be bulk-imported from pasted CSV/TSV in the admin (`src/lib/opportunity-csv.ts`). All validation lives in `src/lib/opportunity-validate.ts`, shared by the form and the import; keep it in sync with the DB check constraints.
 
 ## Build order
 
@@ -142,14 +153,13 @@ Each step should produce a working, deployable site. Do not skip ahead.
 ## Out of scope for v1
 
 If asked to add any of these, push back and confirm — they are v2:
-- Authentication, signup, login
-- Member profiles or directory
+- Member signup, member login, member profiles or directory
 - Membership cards
-- Database, Supabase integration
 - Member-only resources
 - Project showcase
 - Wins feed
-- Admin UI for officers
+
+Exception pulled into v1: an **officer-only admin** (Supabase + Google sign-in) for the opportunities feed and custom event covers. See "Admin and Supabase" below. It is not a member account system.
 
 ## Key design decisions (don't relitigate)
 
