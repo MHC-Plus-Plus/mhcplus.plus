@@ -56,3 +56,25 @@ export type Highlight = {
   /** MDX body, plain paragraphs. */
   recap: string;
 };
+
+export type OpportunityCategory =
+  | "internship"
+  | "mentorship"
+  | "cuny_program"
+  | "scholarship"
+  | "other";
+
+export type Opportunity = {
+  id: string;
+  title: string;
+  org: string;
+  /** External apply / info link (http or https). */
+  url: string;
+  description: string;
+  category: OpportunityCategory;
+  /** ISO date (YYYY-MM-DD). Null means rolling. */
+  deadline: string | null;
+  /** ISO 8601, UTC. */
+  postedAt: string;
+  published: boolean;
+};

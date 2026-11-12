@@ -1,3 +1,4 @@
+import { publicClient } from "@/lib/supabase/server";
 import type { CalendarEvent } from "@/lib/types";
 
 export const EVENTS_FEED_URL =
@@ -158,11 +159,45 @@ async function getCoverImage(rsvpUrl: string): Promise<string | null> {
   }
 }
 
-/** Every event in the feed, soonest first, with cover images where CampusGroups has one. */
+type Overrides = { covers: Map<string, string>; types: Map<string, string> };
+
+/** Officer edits from Supabase, keyed by CampusGroups event id. Empty when unavailable. */
+async function getOverrides(): Promise<Overrides> {
+  const empty = { covers: new Map<string, string>(), types: new Map<string, string>() };
+  const supabase = publicClient();
+  if (!supabase) return empty;
+  try {
+    const [covers, types] = await Promise.all([
+      supabase.from("event_covers").select("event_id, image_url").abortSignal(AbortSignal.timeout(5000)),
+      supabase.from("event_types").select("event_id, event_type").abortSignal(AbortSignal.timeout(5000)),
+    ]);
+    return {
+      covers: new Map((covers.data ?? []).map((r) => [r.event_id as string, r.image_url as string])),
+      types: new Map((types.data ?? []).map((r) => [r.event_id as string, r.event_type as string])),
+    };
+  } catch {
+    return empty;
+  }
+}
+
+/**
+ * Every event in the feed, soonest first. Cover priority: officer upload,
+ * then the CampusGroups og:image, then null (placeholder block). An officer
+ * type override replaces the CampusGroups type.
+ */
 export async function getEvents(): Promise<CalendarEvent[]> {
-  const feed = await getFeedEvents();
+  const [feed, overrides] = await Promise.all([getFeedEvents(), getOverrides()]);
   return Promise.all(
-    feed.map(async (e) => ({ ...e, coverImage: await getCoverImage(e.url) })),
+    feed.map(async (e) => {
+      const id = rsvpId(e);
+      const uploaded = id ? overrides.covers.get(id) : undefined;
+      const type = id ? overrides.types.get(id) : undefined;
+      return {
+        ...e,
+        coverImage: uploaded ?? (await getCoverImage(e.url)),
+        eventType: type ?? e.eventType,
+      };
+    }),
   );
 }
 
