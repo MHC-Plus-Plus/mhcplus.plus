@@ -12,10 +12,9 @@ type Props = {
   hasSpeaker: boolean;
 };
 
-const panel = "rounded-md border border-border bg-bg-card/60 p-6 backdrop-blur-sm";
-const labelClass = "mb-3 block text-base font-semibold";
-const inputClass =
-  "w-full rounded-sm border border-border-strong bg-bg-elevated px-3 py-2.5 text-sm text-fg placeholder:text-fg-subtle focus:border-primary focus:outline-none";
+const panel = "card p-6";
+const labelClass = "mb-3 block text-base font-medium";
+const inputClass = "field";
 
 export function FeedbackForm({ eventId, type, hasSpeaker }: Props) {
   const [state, action, pending] = useActionState<FeedbackState, FormData>(
@@ -26,8 +25,8 @@ export function FeedbackForm({ eventId, type, hasSpeaker }: Props) {
   if (state.status === "success") {
     return (
       <div className={panel} role="status">
-        <h2 className="text-2xl font-bold tracking-[-0.02em]">Thanks for the feedback.</h2>
-        <p className="mt-3 text-fg-muted">
+        <h2 className="h-card">Thanks for the feedback.</h2>
+        <p className="mt-3 text-fg-2">
           It helps us make the next one better. See you at a future event.
         </p>
       </div>
@@ -39,19 +38,19 @@ export function FeedbackForm({ eventId, type, hasSpeaker }: Props) {
       <div className={`${panel} grid gap-5 sm:grid-cols-2`}>
         <label>
           <span className={labelClass}>
-            First name <span className="font-normal text-fg-subtle">(optional)</span>
+            First name <span className="font-normal text-fg-2">(optional)</span>
           </span>
           <input name="firstName" autoComplete="given-name" maxLength={100} className={inputClass} />
         </label>
         <label>
           <span className={labelClass}>
-            Last name <span className="font-normal text-fg-subtle">(optional)</span>
+            Last name <span className="font-normal text-fg-2">(optional)</span>
           </span>
           <input name="lastName" autoComplete="family-name" maxLength={100} className={inputClass} />
         </label>
         <label className="sm:col-span-2">
           <span className={labelClass}>
-            Frequently checked email <span className="font-normal text-fg-subtle">(optional)</span>
+            Frequently checked email <span className="font-normal text-fg-2">(optional)</span>
           </span>
           <input name="email" type="email" autoComplete="email" maxLength={200} className={inputClass} />
         </label>
@@ -64,7 +63,7 @@ export function FeedbackForm({ eventId, type, hasSpeaker }: Props) {
         <RatingInput name="speaker" label="How would you rate the speaker's delivery and clarity?" />
       )}
 
-      <p className="mt-6 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-bright before:text-fg-dim before:content-['//_']">
+      <p className="label mt-6">
         Improvement section
       </p>
 
@@ -72,16 +71,16 @@ export function FeedbackForm({ eventId, type, hasSpeaker }: Props) {
         <legend className="sr-only">What did you most enjoy about the event?</legend>
         <p className={labelClass} aria-hidden>
           What did you most enjoy about the event?{" "}
-          <span className="font-normal text-fg-subtle">(Check all that apply)</span>
+          <span className="font-normal text-fg-2">(Check all that apply)</span>
         </p>
         <div className="flex flex-col gap-3">
           {ENJOYED_OPTIONS.filter((o) => hasSpeaker || !("speakerOnly" in o)).map((o) => (
-            <label key={o.value} className="flex items-center gap-3 text-sm text-fg-muted">
-              <input type="checkbox" name="enjoyed" value={o.value} className="size-4 accent-primary" />
+            <label key={o.value} className="flex items-center gap-3 text-sm text-fg-2">
+              <input type="checkbox" name="enjoyed" value={o.value} className="size-4 accent-accent" />
               {o.label}
             </label>
           ))}
-          <label className="flex items-center gap-3 text-sm text-fg-muted">
+          <label className="flex items-center gap-3 text-sm text-fg-2">
             <span>Other:</span>
             <input name="enjoyedOther" maxLength={300} className={inputClass} />
           </label>
@@ -114,7 +113,7 @@ export function FeedbackForm({ eventId, type, hasSpeaker }: Props) {
       </div>
 
       {state.status === "error" && (
-        <p role="alert" className="rounded-sm border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-primary-bright">
+        <p role="alert" className="card border-line-strong px-4 py-3 text-sm text-fg">
           {state.message}
         </p>
       )}
@@ -122,7 +121,7 @@ export function FeedbackForm({ eventId, type, hasSpeaker }: Props) {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center justify-center gap-2 self-start rounded-sm border border-primary bg-primary px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-bright disabled:opacity-60"
+        className="btn btn-solid btn-lg self-start"
       >
         {pending ? "Sending…" : "Submit feedback"}
       </button>

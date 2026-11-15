@@ -3,88 +3,319 @@
 @import "shadcn/tailwind.css";
 @import "../styles/tokens.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Wipe Tailwind's default palette so only the MHC++ tokens are usable. */
+@theme {
+  --color-*: initial;
+}
 
 @theme inline {
-  /* shadcn semantic colors → resolved from the brand tokens below */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-fg: var(--c-fg);
+  --color-fg-2: var(--c-fg-2);
+  --color-fg-3: var(--c-fg-3);
+  --color-white: var(--c-white);
+  --color-accent: var(--c-accent);
 
-  /* MHC++ brand tokens → Tailwind utilities (bg-bg, text-fg-muted, etc.) */
-  --color-bg: var(--bg);
-  --color-bg-elevated: var(--bg-elevated);
-  --color-bg-card: var(--bg-card);
-  --color-bg-card-hover: var(--bg-card-hover);
-  --color-border-strong: var(--border-strong);
-  --color-border-bright: var(--border-bright);
-  --color-fg: var(--fg);
-  --color-fg-muted: var(--fg-muted);
-  --color-fg-subtle: var(--fg-subtle);
-  --color-fg-dim: var(--fg-dim);
-  --color-primary-bright: var(--primary-bright);
-  --color-primary-dim: var(--primary-dim);
-
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
+  --font-heading: var(--ff-heading);
+  --font-sans: var(--ff-body);
+  --font-mono: var(--ff-code);
 
   --container-page: var(--container);
 }
 
-/* Map shadcn's semantic variables onto the MHC++ dark palette. The brand
-   tokens (--primary, --border, --font-*) come from tokens.css; the rest are
-   derived here. This is the only theme: dark is the default and only mode. */
+/* Section vertical rhythm. */
+@utility py-section {
+  padding-block: var(--section-y);
+}
+@utility pt-section {
+  padding-top: var(--section-y);
+}
+@utility pb-section {
+  padding-bottom: var(--section-y);
+}
+
 :root {
   color-scheme: dark;
-
-  --background: var(--bg);
-  --foreground: var(--fg);
-  --card: var(--bg-card);
-  --card-foreground: var(--fg);
-  --popover: var(--bg-elevated);
-  --popover-foreground: var(--fg);
-  --primary-foreground: #ffffff;
-  --secondary: var(--bg-card);
-  --secondary-foreground: var(--fg);
-  --muted: var(--bg-card);
-  --muted-foreground: var(--fg-muted);
-  --accent: var(--bg-card-hover);
-  --accent-foreground: var(--fg);
-  --destructive: var(--primary);
-  --input: var(--border-strong);
-  --ring: var(--primary);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--c-line);
   }
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    background: var(--c-bg);
+    color: var(--c-fg);
+    font-family: var(--ff-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--ff-heading);
+    text-wrap: balance;
+  }
+  ::selection {
+    background: var(--c-accent);
+    color: var(--c-bg);
+  }
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
   }
 }
 
+@layer components {
+  /* ---------- Layout ---------- */
+  .container-page {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Label-left / content-right intro pattern. Stacks on mobile. */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  @media (min-width: 760px) {
+    .intro-grid {
+      grid-template-columns: var(--label-col) minmax(0, 1fr);
+      gap: 32px;
+    }
+  }
+
+  /* ---------- Type ---------- */
+  .label {
+    font-family: var(--ff-code);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-fg-2);
+  }
+  .label::before {
+    content: "// ";
+    color: var(--c-accent);
+  }
+
+  .meta {
+    font-family: var(--ff-code);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-fg-2);
+  }
+
+  .h-hero {
+    font-family: var(--ff-heading);
+    font-weight: 800;
+    font-size: clamp(56px, 11vw, 168px);
+    line-height: 0.9;
+    letter-spacing: -0.055em;
+  }
+  .h-page {
+    font-family: var(--ff-heading);
+    font-weight: 800;
+    font-size: clamp(48px, 8vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+  }
+  .h-section {
+    font-family: var(--ff-heading);
+    font-weight: 700;
+    font-size: clamp(40px, 5.5vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+  .h-card {
+    font-family: var(--ff-heading);
+    font-weight: 600;
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  /* Big two-tone statement: first sentence in fg, the rest in a .muted span. */
+  .statement {
+    font-family: var(--ff-heading);
+    font-weight: 500;
+    font-size: clamp(28px, 3.6vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    color: var(--c-fg);
+    max-width: 28ch;
+  }
+  .statement .muted {
+    color: var(--c-fg-3);
+  }
+
+  .body {
+    font-size: clamp(16px, 1.25vw, 18px);
+    line-height: 1.6;
+    color: var(--c-fg-2);
+    max-width: 60ch;
+  }
+
+  .text-link {
+    color: var(--c-fg);
+    text-decoration: underline;
+    text-decoration-color: var(--c-line-strong);
+    text-underline-offset: 4px;
+    transition: text-decoration-color var(--ease);
+  }
+  .text-link:hover {
+    text-decoration-color: var(--c-fg);
+  }
+
+  /* ---------- Buttons (pills) ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    padding-inline: 22px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: var(--ff-body);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--ease),
+      border-color var(--ease),
+      color var(--ease),
+      opacity var(--ease);
+  }
+  .btn-sm {
+    height: 44px;
+    padding-inline: 18px;
+    font-size: 14px;
+  }
+  .btn-lg {
+    height: 56px;
+    padding-inline: 28px;
+    font-size: 16px;
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .btn-solid {
+    background: var(--c-fg);
+    color: var(--c-bg);
+  }
+  .btn-solid:hover:not(:disabled) {
+    background: var(--c-white);
+  }
+
+  .btn-accent {
+    background: var(--c-accent);
+    color: var(--c-bg);
+  }
+  .btn-accent:hover:not(:disabled) {
+    opacity: 0.88;
+  }
+
+  .btn-outline {
+    background: transparent;
+    border-color: var(--c-line-strong);
+    color: var(--c-fg);
+  }
+  .btn-outline:hover:not(:disabled):not([aria-disabled="true"]) {
+    border-color: var(--c-fg);
+  }
+
+  /* Dark pill, for use on the accent CTA block. */
+  .btn-dark {
+    background: var(--c-bg);
+    color: var(--c-fg);
+  }
+  .btn-dark:hover:not(:disabled) {
+    background: var(--c-surface);
+  }
+
+  /* ---------- Tags ---------- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    padding-inline: 12px;
+    border: 1px solid var(--c-line-strong);
+    border-radius: 999px;
+    font-family: var(--ff-code);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-fg-2);
+    white-space: nowrap;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: 20px;
+  }
+
+  /* Full-width accent CTA block. Dark text and dark focus rings on it. */
+  .cta-block {
+    background: var(--c-accent);
+    color: var(--c-bg);
+    border-radius: 28px;
+  }
+  .cta-block :focus-visible {
+    outline-color: var(--c-bg);
+  }
+
+  /* ---------- Forms ---------- */
+  .field {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 1px solid var(--c-line-strong);
+    border-radius: 14px;
+    background: var(--c-bg);
+    color: var(--c-fg);
+    font-size: 15px;
+    line-height: 1.4;
+    transition: border-color var(--ease);
+  }
+  .field::placeholder {
+    color: var(--c-fg-2);
+  }
+  .field:hover {
+    border-color: var(--c-fg-2);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--c-fg);
+  }
+  .field:focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* ---------- TODAY ticker ---------- */
 @keyframes ticker {
   0% {
     transform: translate3d(0, 0, 0);
@@ -99,6 +330,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .ticker-viewport {
     overflow-x: auto !important;
   }

@@ -1,31 +1,37 @@
-/* MHC++ design tokens (see CLAUDE.md). Single source of truth for brand
-   colors, fonts, radii, and layout width. Referenced by globals.css @theme
-   so they surface as Tailwind utilities, and by shadcn's semantic variables. */
+/* MHC++ design tokens (see CLAUDE.md). The single source of truth for
+   colors, fonts and layout. Nothing else in the codebase should hard-code a
+   color: globals.css maps these onto Tailwind utilities (bg-surface,
+   text-fg-2, border-line, ...) and the component classes. */
 :root {
-  --primary: #DB3314;
-  --primary-bright: #FF4525; /* hover, accent text on dark */
-  --primary-dim: #8A2010;    /* subdued contexts */
+  /* Surfaces */
+  --c-bg: #0A0A0B;
+  --c-surface: #111113;      /* raised surface: cards */
+  --c-nav: rgba(10, 10, 11, 0.85);
 
-  --bg: #0A0A0B;
-  --bg-elevated: #111113;
-  --bg-card: #131316;
-  --bg-card-hover: #18181C;
+  /* Lines */
+  --c-line: #1F1F22;         /* hairline dividers and card borders */
+  --c-line-strong: #3A3A3E;  /* outline buttons, inputs */
 
-  --border: #1F1F23;
-  --border-strong: #2A2A30;
-  --border-bright: #3A3A42;
+  /* Text: only these three. */
+  --c-fg: #EDEDE8;           /* primary */
+  --c-fg-2: #9A9A94;         /* secondary */
+  --c-fg-3: #6B6B67;         /* muted: large text only (>= 28px) */
+  --c-white: #FFFFFF;        /* solid button hover */
 
-  --fg: #F4F4F5;
-  --fg-muted: #9A9AA3;
-  --fg-subtle: #5E5E66;
-  --fg-dim: #3F3F46;
+  /* Single accent. Use sparingly: "++", "//" markers, primary CTA, one CTA block. */
+  --c-accent: #FF5A36;
 
   /* Font stacks lead with the next/font variables loaded in layout.tsx. */
-  --font-sans: var(--font-urbanist), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), 'Courier New', monospace;
+  --ff-heading: var(--font-inter-tight), "Inter Tight", system-ui, sans-serif;
+  --ff-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --ff-code: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
 
-  --radius-sm: 2px;
-  --radius-md: 3px;
+  /* Layout */
+  --container: 1360px;
+  --gutter: clamp(20px, 4vw, 40px);
+  --section-y: clamp(64px, 9vw, 120px);
+  --label-col: 220px;
+  --nav-h: 68px;
 
-  --container: 1180px;
+  --ease: 150ms ease;
 }

@@ -46,7 +46,7 @@ export function CoverUploader({ eventId, hasCustom }: Props) {
 
   return (
     <div className="flex flex-col gap-2 text-sm">
-      <label className="cursor-pointer text-primary-bright hover:underline">
+      <label className="btn btn-outline h-10 px-4 text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-accent has-[:focus-visible]:outline-solid">
         {hasCustom ? "Replace cover" : "Upload cover"}
         <input
           type="file"
@@ -65,12 +65,12 @@ export function CoverUploader({ eventId, hasCustom }: Props) {
               setMessage("Custom cover removed.");
             })
           }
-          className="w-fit text-left text-fg-muted hover:text-fg"
+          className="w-fit rounded-sm text-left text-fg-2 underline decoration-line-strong underline-offset-4 transition-colors duration-150 hover:text-fg"
         >
           Remove custom cover
         </button>
       )}
-      {message && <span role="status" className="text-fg-subtle">{message}</span>}
+      {message && <span role="status" className="text-fg-2">{message}</span>}
     </div>
   );
 }

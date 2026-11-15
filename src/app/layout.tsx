@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Urbanist, JetBrains_Mono } from "next/font/google";
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { TodayTicker } from "@/components/layout/TodayTicker";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
-// Urbanist for content, JetBrains Mono for technical/label accents.
-// Both are variable fonts, so we don't pin specific weights.
-const urbanist = Urbanist({
-  variable: "--font-urbanist",
+// Inter Tight for headings, Inter for body, JetBrains Mono for labels/meta.
+// All three are variable fonts, so we don't pin specific weights.
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -33,24 +39,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${urbanist.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${interTight.variable} ${inter.variable} ${jetbrainsMono.variable} h-full`}
     >
-      <body className="relative flex min-h-full flex-col overflow-x-hidden">
-        {/* Faint dot/grid background behind everything (mockup parity). */}
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 z-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        <div className="relative z-[1]">
-          <TodayTicker />
-        </div>
+      <body className="flex min-h-full flex-col overflow-x-hidden">
+        <TodayTicker />
         <Nav />
-        <main className="relative z-[1] flex-1">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

@@ -7,9 +7,8 @@ import type { Opportunity } from "@/lib/types";
 
 type Props = { opportunity?: Opportunity };
 
-const field =
-  "w-full rounded-sm border border-border-strong bg-bg-elevated px-3 py-2.5 text-sm text-fg outline-none focus:border-primary";
-const label = "mb-1.5 block font-mono text-[11px] uppercase tracking-[0.1em] text-fg-subtle";
+const field = "field";
+const label = "meta mb-2 block";
 
 export function OpportunityForm({ opportunity: o }: Props) {
   const [state, action, pending] = useActionState<FormState, FormData>(
@@ -48,18 +47,18 @@ export function OpportunityForm({ opportunity: o }: Props) {
         <textarea id={`desc-${o?.id ?? "new"}`} name="description" rows={4} maxLength={1500} defaultValue={o?.description} className={field} />
       </div>
       <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
-        <label className="flex items-center gap-2 text-sm text-fg-muted">
-          <input type="checkbox" name="published" defaultChecked={o?.published ?? true} />
+        <label className="flex items-center gap-2 text-sm text-fg-2">
+          <input type="checkbox" name="published" defaultChecked={o?.published ?? true} className="size-4 accent-accent" />
           Published
         </label>
         <button
           disabled={pending}
-          className="rounded-sm border border-primary bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-bright disabled:opacity-60"
+          className="btn btn-solid"
         >
           {pending ? "Saving…" : o ? "Save changes" : "Post opportunity"}
         </button>
         {state.message && (
-          <span role="status" className={state.ok ? "text-sm text-fg-muted" : "text-sm text-primary-bright"}>
+          <span role="status" className={state.ok ? "text-sm text-fg-2" : "text-sm text-fg"}>
             {state.message}
           </span>
         )}

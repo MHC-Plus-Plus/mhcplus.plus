@@ -23,12 +23,12 @@ export function GoogleSignInButton() {
     <div>
       <button
         onClick={signIn}
-        className="inline-flex items-center gap-2.5 rounded-sm border border-primary bg-primary px-6 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-primary-bright"
+        className="btn btn-accent btn-lg"
       >
         Sign in with Google
       </button>
       {(error || failed) && (
-        <p className="mt-3 text-sm text-primary-bright">
+        <p role="alert" className="mt-3 text-sm text-fg">
           {error ?? "Sign-in failed. Please try again."}
         </p>
       )}

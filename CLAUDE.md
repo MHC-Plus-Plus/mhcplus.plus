@@ -10,9 +10,9 @@ We are currently building **v1**: a public, static, content-driven Next.js site.
 
 ## Reference materials in the repo
 
-- **`mockup.html`** — Visual reference for the home page. The actual implementation should match this aesthetic closely: dark mode, Urbanist for content, JetBrains Mono for accents, square corners, glows, translucent panels with backdrop blur, `#DB3314` primary. Open this in a browser before making design decisions.
+- **`mockup.html`** — The original v1 home page mockup. **Superseded** by the Swiss/editorial restyle described under "Design system" below; keep it for reference only.
 - **`README.md`** — Project brief and feature roadmap.
-- **`mhcpp_icon.svg`** — Logo. Note: the SVG file uses `#F14323` as the square color; the canonical brand color is `#DB3314`. When using this logo inline, use `#DB3314`.
+- **`mhcpp_icon.svg`** — Logo. The SVG file uses `#F14323`; inline, use the `--c-accent` token instead.
 
 ## Tech stack (locked)
 
@@ -23,43 +23,34 @@ We are currently building **v1**: a public, static, content-driven Next.js site.
 - **Vercel** for hosting (free tier, spend limit configured)
 - **Porkbun** for domain (`mhcplus.plus`)
 
-## Design tokens
+## Design system (Swiss / editorial, dark)
 
-Use CSS custom properties in `src/styles/tokens.css` and reference them from Tailwind config so both work.
+Huge tightly spaced headlines, small uppercase mono labels, hairline dividers, pill buttons, lots of empty space. **No** gradients, glows, glassmorphism, drop shadows, left-border accent cards or emoji.
+
+Tokens live only in `src/styles/tokens.css`; `src/app/globals.css` maps them to Tailwind (Tailwind's default palette is wiped, so only these exist) and defines the component classes. Never hard-code a color anywhere else.
 
 ```
---primary: #DB3314
---primary-bright: #FF4525   /* hover, accent text on dark */
---primary-dim: #8A2010      /* subdued contexts */
-
---bg: #0A0A0B
---bg-elevated: #111113
---bg-card: #131316
---bg-card-hover: #18181C
-
---border: #1F1F23
---border-strong: #2A2A30
---border-bright: #3A3A42
-
---fg: #F4F4F5
---fg-muted: #9A9AA3
---fg-subtle: #5E5E66
---fg-dim: #3F3F46
-
---font-sans: 'Urbanist', system-ui, sans-serif
---font-mono: 'JetBrains Mono', 'Courier New', monospace
-
---radius-sm: 2px
---radius-md: 3px
-
---container: 1180px
+--c-bg: #0A0A0B          bg-bg
+--c-surface: #111113     bg-surface      (cards)
+--c-line: #1F1F22        border-line     (hairlines, card borders)
+--c-line-strong: #3A3A3E border-line-strong (outline buttons, inputs)
+--c-fg: #EDEDE8          text-fg         (primary text)
+--c-fg-2: #9A9A94        text-fg-2       (secondary text)
+--c-fg-3: #6B6B67        text-fg-3       (muted; large text >= 28px only, it is ~3.7:1)
+--c-accent: #FF5A36      text-accent / bg-accent
+--container: 1360px, --gutter: clamp(20px,4vw,40px), --section-y: clamp(64px,9vw,120px)
 ```
+
+Accent is used sparingly: the "++" in the logo, "//" label markers, the primary CTA, and the one closing CTA block. Errors use primary text, not accent.
+
+Component classes (globals.css): `container-page` (via `Container`), `py-section`, `intro-grid` (220px label column + content, stacks under 760px), `label` (mono 12px uppercase with accent "//"), `meta`, `h-hero`, `h-page`, `h-section`, `h-card`, `statement` (+ `.muted` span), `body`, `text-link`, `btn` + `btn-solid | btn-accent | btn-outline | btn-dark` (+ `btn-sm | btn-lg`), `tag`, `card` (20px radius), `cta-block` (28px radius), `field`. Sub-pages use `PageHeader` for the label/title/two-tone intro.
 
 ## Typography rules
 
-- **Urbanist** for content: headlines, body, event titles, nav links, brand wordmark, stat numbers, button labels
-- **JetBrains Mono** for technical/label accents only: section eyebrows, stat labels ("Members", "Campuses"), event date badges, event meta info, sponsor strip label, footer copyright
-- **Sentence case** for body, buttons, and most UI. **Title Case** for event titles. **Tracked uppercase** for eyebrow labels.
+- **Inter Tight** (600–800, tight negative tracking) for headings, wordmark, big numbers, and the statement paragraph.
+- **Inter** (400/500) for body, nav links and button labels.
+- **JetBrains Mono** for labels/meta only: section labels, tags, event dates/times, footer copyright.
+- **Sentence case** for body, buttons, and most UI. **Title Case** for event titles. **Tracked uppercase** for labels.
 - Do not use snake_case in displayed text. Do not use lowercase as a stylistic choice (that direction was rejected in design review).
 
 ## Repo structure
@@ -173,7 +164,7 @@ These were debated during planning and decided. Don't propose alternatives witho
 
 ## Working style
 
-- When in doubt about a design decision, look at `mockup.html` first.
+- When in doubt about a design decision, follow "Design system" above (not `mockup.html`).
 - Before adding a new dependency, ask. Prefer using what's already installed (Tailwind, shadcn primitives).
 - After non-trivial changes, run `npm run build` to catch type errors and build issues before claiming work is done.
 - Don't auto-commit. Show me what you've changed and let me commit.

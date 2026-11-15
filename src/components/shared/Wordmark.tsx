@@ -1,20 +1,19 @@
 /**
- * "MHC++" text wordmark. No logo icon, all white. Used in the nav and
- * footer. The `size` prop maps to the text size in px so callers can pick
- * larger/smaller without thinking in Tailwind units.
+ * "MHC++" text wordmark: "MHC" in the primary text color, "++" in the
+ * accent. The `size` prop is the font size in px.
  */
 type Props = {
   size?: number;
   className?: string;
 };
 
-export function Wordmark({ size = 17, className }: Props) {
+export function Wordmark({ size = 20, className }: Props) {
   return (
     <span
-      className={`inline-flex items-center font-bold tracking-[-0.01em] text-fg ${className ?? ""}`}
+      className={`inline-flex items-baseline font-heading font-extrabold leading-none tracking-[-0.045em] text-fg ${className ?? ""}`}
       style={{ fontSize: `${size}px` }}
     >
-      MHC++
+      MHC<span className="text-accent">++</span>
     </span>
   );
 }

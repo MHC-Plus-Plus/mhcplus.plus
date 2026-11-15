@@ -12,9 +12,9 @@ export default async function ProtectedAdminLayout({ children }: { children: Rea
 
   if (state.status === "unconfigured") {
     return (
-      <Container className="py-[120px]">
-        <h1 className="text-3xl font-bold">Admin isn&apos;t configured</h1>
-        <p className="mt-4 text-fg-muted">
+      <Container className="py-section">
+        <h1 className="h-section">Admin isn&apos;t configured</h1>
+        <p className="body mt-6">
           Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.
         </p>
       </Container>
@@ -23,31 +23,33 @@ export default async function ProtectedAdminLayout({ children }: { children: Rea
 
   if (state.status === "forbidden") {
     return (
-      <Container className="py-[120px]">
-        <h1 className="text-3xl font-bold">Not authorized</h1>
-        <p className="mt-4 max-w-[560px] text-fg-muted">
+      <Container className="py-section">
+        <h1 className="h-section">Not authorized</h1>
+        <p className="body mt-6">
           {state.email} isn&apos;t on the officer list. Ask an officer to add your email, or sign
           in with a different account.
         </p>
         <form action={signOut} className="mt-8">
-          <button className="rounded-sm border border-border-strong px-5 py-3 text-sm font-semibold hover:border-border-bright">
-            Sign out
-          </button>
+          <button className="btn btn-outline">Sign out</button>
         </form>
       </Container>
     );
   }
 
   return (
-    <Container className="py-[120px]">
-      <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-border pb-4 font-mono text-xs uppercase tracking-[0.1em]">
-        <nav className="flex gap-6">
-          <Link href="/admin/opportunities" className="text-fg-muted hover:text-fg">Opportunities</Link>
-          <Link href="/admin/covers" className="text-fg-muted hover:text-fg">Events</Link>
+    <Container className="py-section">
+      <div className="mb-12 flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4">
+        <nav className="flex gap-6 font-mono text-xs uppercase tracking-[0.08em]">
+          <Link href="/admin/opportunities" className="rounded-sm text-fg-2 transition-colors duration-150 hover:text-fg">
+            Opportunities
+          </Link>
+          <Link href="/admin/covers" className="rounded-sm text-fg-2 transition-colors duration-150 hover:text-fg">
+            Events
+          </Link>
         </nav>
-        <form action={signOut} className="flex items-center gap-4">
-          <span className="normal-case tracking-normal text-fg-subtle">{state.email}</span>
-          <button className="text-primary-bright hover:underline">Sign out</button>
+        <form action={signOut} className="flex flex-wrap items-center gap-4">
+          <span className="text-sm text-fg-2">{state.email}</span>
+          <button className="btn btn-outline h-9 px-4 text-[13px]">Sign out</button>
         </form>
       </div>
       {children}

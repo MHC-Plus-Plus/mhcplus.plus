@@ -12,7 +12,7 @@ export function EventTypeSelect({ eventId, override }: Props) {
 
   return (
     <div className="flex flex-col gap-1.5 text-sm">
-      <label className="font-mono text-[11px] uppercase tracking-[0.1em] text-fg-subtle" htmlFor={`type-${eventId}`}>
+      <label className="meta" htmlFor={`type-${eventId}`}>
         Event type
       </label>
       <select
@@ -25,14 +25,14 @@ export function EventTypeSelect({ eventId, override }: Props) {
             setMessage(res.ok ? "Saved." : "Couldn't save.");
           })
         }
-        className="rounded-sm border border-border-strong bg-bg-elevated px-3 py-2 text-sm text-fg outline-none focus:border-primary"
+        className="field min-h-10 py-2 text-sm"
       >
         <option value="">Auto (CampusGroups)</option>
         {EVENT_TYPES.map((t) => (
           <option key={t.value} value={t.value}>{t.label}</option>
         ))}
       </select>
-      {message && <span role="status" className="text-fg-subtle">{message}</span>}
+      {message && <span role="status" className="text-fg-2">{message}</span>}
     </div>
   );
 }

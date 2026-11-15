@@ -24,8 +24,8 @@ export default async function AdminOpportunitiesPage() {
   return (
     <div className="space-y-12">
       <section>
-        <h1 className="mb-6 text-2xl font-bold tracking-[-0.02em]">New opportunity</h1>
-        <div className="rounded-md border border-border bg-bg-card/60 p-6">
+        <h1 className="h-section mb-8">New opportunity</h1>
+        <div className="card p-6">
           <OpportunityForm />
         </div>
         <div className="mt-3">
@@ -34,38 +34,36 @@ export default async function AdminOpportunitiesPage() {
       </section>
 
       <section>
-        <h2 className="mb-6 text-2xl font-bold tracking-[-0.02em]">All posts ({posts.length})</h2>
+        <h2 className="h-section mb-8">All posts ({posts.length})</h2>
         <div className="flex flex-col gap-3">
           {posts.map((o) => (
-            <details key={o.id} className="rounded-md border border-border bg-bg-card/60">
-              <summary className="flex cursor-pointer flex-wrap items-center gap-3 p-4">
-                <span className="font-semibold">{o.title}</span>
-                <span className="text-sm text-fg-muted">{o.org}</span>
-                <span className="font-mono text-[11px] uppercase text-fg-subtle">
+            <details key={o.id} className="card overflow-hidden">
+              <summary className="flex cursor-pointer flex-wrap items-center gap-3 rounded-[20px] p-4">
+                <span className="font-heading text-lg font-semibold tracking-[-0.03em]">{o.title}</span>
+                <span className="text-sm text-fg-2">{o.org}</span>
+                <span className="meta">
                   {CATEGORY_LABELS[o.category]}
                   {o.deadline ? ` · due ${formatDeadlineBadge(o.deadline)}` : " · rolling"}
                 </span>
-                {!o.published && <span className="font-mono text-[11px] uppercase text-primary-bright">Hidden</span>}
-                {o.published && !isOpen(o) && (
-                  <span className="font-mono text-[11px] uppercase text-primary-bright">Expired</span>
-                )}
+                {!o.published && <span className="tag">Hidden</span>}
+                {o.published && !isOpen(o) && <span className="tag">Expired</span>}
               </summary>
-              <div className="space-y-4 border-t border-border p-4">
+              <div className="space-y-4 border-t border-line p-4">
                 <OpportunityForm opportunity={o} />
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-3">
                   <form action={setPublished.bind(null, o.id, !o.published)}>
-                    <button className="text-sm text-fg-muted hover:text-fg">
+                    <button className="btn btn-outline btn-sm">
                       {o.published ? "Unpublish" : "Publish"}
                     </button>
                   </form>
                   <form action={deleteOpportunity.bind(null, o.id)}>
-                    <button className="text-sm text-primary-bright hover:underline">Delete</button>
+                    <button className="btn btn-outline btn-sm">Delete</button>
                   </form>
                 </div>
               </div>
             </details>
           ))}
-          {posts.length === 0 && <p className="text-fg-muted">No posts yet.</p>}
+          {posts.length === 0 && <p className="text-fg-2">No posts yet.</p>}
         </div>
       </section>
     </div>
