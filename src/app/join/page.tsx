@@ -11,7 +11,7 @@ import {
 } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Join · MHC++",
+  title: "Join - MHC++",
   description:
     "Join MHC++: sign up on Club Macaulay, then find us on Discord, Instagram, and more.",
 };

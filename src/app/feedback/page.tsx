@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { formatDateBadge, getPastEvents, rsvpId } from "@/lib/events";
 
 export const metadata: Metadata = {
-  title: "Event feedback · MHC++",
+  title: "Event feedback - MHC++",
   description: "Tell us how our past events went so we can make the next ones better.",
 };
 

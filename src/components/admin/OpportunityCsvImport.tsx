@@ -59,7 +59,7 @@ export function OpportunityCsvImport() {
               <ul className="space-y-1 text-fg-2">
                 {parsed.rows.slice(0, 5).map((r, i) => (
                   <li key={i}>
-                    {r.title} · {r.org}
+                    {r.title} - {r.org}
                   </li>
                 ))}
                 {parsed.rows.length > 5 && <li>…and {parsed.rows.length - 5} more</li>}

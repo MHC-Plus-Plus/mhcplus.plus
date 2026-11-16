@@ -13,7 +13,7 @@ type Props = {
 };
 
 /**
- * Left date column of an event card: "FRI · NOV", a huge day number, and the
+ * Left date column of an event card: "FRI - NOV", a huge day number, and the
  * start time. Horizontal on phones, a fixed-width column with a vertical
  * hairline from md up.
  */
@@ -28,7 +28,7 @@ export function EventDate({ event, className }: Props) {
       )}
     >
       <span className="font-mono text-xs font-medium uppercase tracking-[0.08em] text-accent">
-        {weekday.format(d)} · {month.format(d)}
+        {weekday.format(d)} - {month.format(d)}
       </span>
       <span className="order-first font-heading text-[clamp(56px,6vw,80px)] font-extrabold leading-[0.85] tracking-[-0.05em] tabular-nums text-fg md:order-none">
         {day.format(d)}

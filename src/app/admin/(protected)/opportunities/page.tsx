@@ -43,7 +43,7 @@ export default async function AdminOpportunitiesPage() {
                 <span className="text-sm text-fg-2">{o.org}</span>
                 <span className="meta">
                   {CATEGORY_LABELS[o.category]}
-                  {o.deadline ? ` · due ${formatDeadlineBadge(o.deadline)}` : " · rolling"}
+                  {o.deadline ? ` - due ${formatDeadlineBadge(o.deadline)}` : " - rolling"}
                 </span>
                 {!o.published && <span className="tag">Hidden</span>}
                 {o.published && !isOpen(o) && <span className="tag">Expired</span>}

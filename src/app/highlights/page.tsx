@@ -6,7 +6,7 @@ import { HighlightCard } from "@/components/highlights/HighlightCard";
 import { getHighlights } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Highlights · MHC++",
+  title: "Highlights - MHC++",
   description: "Recaps and photos from past MHC++ events.",
 };
 

@@ -26,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MHC++ · Uniting CUNY CS",
+  title: "MHC++ - Uniting CUNY CS",
   description:
     "MHC++ brings together computer science students from across The City University of New York.",
 };

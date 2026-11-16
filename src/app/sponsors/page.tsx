@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { EMAIL, SPONSOR_PACKET_URL } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Sponsors · MHC++",
+  title: "Sponsors - MHC++",
   description: "Partner with MHC++ to reach CS students across CUNY.",
 };
 

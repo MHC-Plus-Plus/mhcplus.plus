@@ -5,7 +5,7 @@ import { MarkdownContent } from "@/components/shared/MarkdownContent";
 import { getPage } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "HackMHC++ · MHC++",
+  title: "HackMHC++ - MHC++",
   description: "HackMHC++, the inter-CUNY hackathon run by MHC++.",
 };
 

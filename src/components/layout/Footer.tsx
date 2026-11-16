@@ -32,13 +32,13 @@ export function Footer() {
 
         <p
           aria-hidden
-          className="mt-[clamp(48px,7vw,96px)] select-none font-heading text-[clamp(96px,25vw,400px)] font-extrabold leading-[0.82] tracking-[-0.07em] text-fg"
+          className="mt-[clamp(48px,7vw,96px)] select-none whitespace-nowrap font-heading text-[clamp(64px,22vw,380px)] font-extrabold leading-[0.82] tracking-[-0.07em] text-fg"
         >
           MHC<span className="text-accent">++</span>
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line py-6 font-mono text-xs uppercase tracking-[0.08em] text-fg-2">
-          <span>© {year} · MHCPLUS.PLUS</span>
+          <span>© {year} - MHCPLUS.PLUS</span>
         </div>
       </Container>
     </footer>

@@ -5,7 +5,7 @@ import { OpportunityFeed } from "@/components/opportunities/OpportunityFeed";
 import { getOpportunities } from "@/lib/opportunities";
 
 export const metadata: Metadata = {
-  title: "Opportunities · MHC++",
+  title: "Opportunities - MHC++",
   description:
     "Internships, mentorship, CUNY programs, and scholarships for CUNY computer science students, curated by MHC++ officers.",
 };

@@ -36,8 +36,8 @@ export default async function AdminCoversPage() {
         </div>
         <div className="min-w-0 flex-1">
           <div className="meta">
-            {formatDateBadge(e)} ·{" "}
-            {hasCustom ? "Custom cover" : e.coverImage ? "From CampusGroups" : "No cover"} ·{" "}
+            {formatDateBadge(e)} -{" "}
+            {hasCustom ? "Custom cover" : e.coverImage ? "From CampusGroups" : "No cover"} -{" "}
             {e.eventType ?? "no type"}{id && overrides.has(id) ? " (override)" : ""}
           </div>
           <div className="mt-2 font-heading text-lg font-semibold tracking-[-0.03em]">{e.title}</div>

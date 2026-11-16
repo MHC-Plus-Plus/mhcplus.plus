@@ -241,10 +241,10 @@ export function formatDateBadge(event: CalendarEvent): string {
   return `${badgeMonth.format(d)} ${badgeDay.format(d)}`.toUpperCase();
 }
 
-/** e.g. "Fri · 4:00 PM" */
+/** e.g. "Fri - 4:00 PM" */
 export function formatDayTime(event: CalendarEvent): string {
   const d = new Date(event.start);
-  return `${weekday.format(d)} · ${clock.format(d)}`;
+  return `${weekday.format(d)} - ${clock.format(d)}`;
 }
 
 /** Dev-only fixture so the TODAY ticker is visible under `npm run dev`. Never shipped to prod. */

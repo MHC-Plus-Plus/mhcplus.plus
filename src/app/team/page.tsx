@@ -5,7 +5,7 @@ import { TeamCard } from "@/components/team/TeamCard";
 import { getTeam } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Team · MHC++",
+  title: "Team - MHC++",
   description: "Meet the MHC++ executive board, the students who run the inter-CUNY CS club.",
 };
 

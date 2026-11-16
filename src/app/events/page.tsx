@@ -6,7 +6,7 @@ import { EventCard } from "@/components/events/EventCard";
 import { getPastEvents, getUpcomingEvents } from "@/lib/events";
 
 export const metadata: Metadata = {
-  title: "Events · MHC++",
+  title: "Events - MHC++",
   description:
     "Upcoming and past MHC++ events: workshops, talks, and meetups for CUNY computer science students.",
 };

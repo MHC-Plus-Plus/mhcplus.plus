@@ -12,7 +12,7 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const event = await getPastEventByRsvpId((await params).id);
   return {
-    title: event ? `Feedback on ${event.title} · MHC++` : "Feedback · MHC++",
+    title: event ? `Feedback on ${event.title} - MHC++` : "Feedback - MHC++",
     robots: { index: false },
   };
 }
@@ -26,7 +26,7 @@ export default async function FeedbackPage({ params }: Props) {
   return (
     <Container className="py-section">
       <div className="intro-grid">
-        <p className="label pt-3">Feedback · {formatDateBadge(event)}</p>
+        <p className="label pt-3">Feedback - {formatDateBadge(event)}</p>
         <div className="min-w-0 max-w-[760px]">
           <h1 className="h-section break-words">Feedback on {event.title}</h1>
           <p className="body mb-10 mt-6">
