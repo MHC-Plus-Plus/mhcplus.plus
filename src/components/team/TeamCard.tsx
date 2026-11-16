@@ -14,8 +14,7 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-const linkClass =
-  "font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-fg-subtle transition-colors hover:text-primary-bright";
+const linkClass = "btn btn-outline h-9 px-4 text-[13px]";
 
 /**
  * Bio and links appear in a panel over the photo on hover or focus, so the
@@ -27,9 +26,9 @@ export function TeamCard({ member }: Props) {
   return (
     <article
       tabIndex={hasDetails ? 0 : undefined}
-      className="group flex flex-col rounded-md border border-border bg-bg-card/60 outline-none backdrop-blur-sm transition-colors hover:border-border-bright focus-visible:border-primary"
+      className="card group flex flex-col overflow-hidden transition-colors duration-150 hover:border-line-strong"
     >
-      <div className="relative aspect-square w-full overflow-hidden border-b border-border bg-bg-elevated">
+      <div className="relative aspect-square w-full overflow-hidden border-b border-line bg-bg">
         {member.photo ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -38,28 +37,19 @@ export function TeamCard({ member }: Props) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <>
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(219,51,20,0.10) 0%, transparent 60%)",
-              }}
-            />
-            <span
-              className="absolute inset-0 flex items-center justify-center text-5xl font-bold text-fg-dim"
-              aria-hidden
-            >
-              {initials(member.name)}
-            </span>
-          </>
+          <span
+            className="absolute inset-0 flex items-center justify-center font-heading text-7xl font-extrabold tracking-[-0.05em] text-fg-3"
+            aria-hidden
+          >
+            {initials(member.name)}
+          </span>
         )}
 
         {hasDetails && (
-          <div className="pointer-events-none absolute inset-0 flex translate-y-2 flex-col gap-4 overflow-y-auto bg-bg/90 p-6 opacity-0 backdrop-blur-md transition-[opacity,transform] duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+          <div className="pointer-events-none absolute inset-0 flex flex-col gap-4 overflow-y-auto bg-bg p-6 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
             {member.bio && <MarkdownContent>{member.bio}</MarkdownContent>}
             {(member.linkedin || member.github) && (
-              <div className="mt-auto flex gap-4">
+              <div className="mt-auto flex flex-wrap gap-2">
                 {member.linkedin && (
                   <a href={member.linkedin} className={linkClass} target="_blank" rel="noopener noreferrer">
                     LinkedIn
@@ -77,15 +67,9 @@ export function TeamCard({ member }: Props) {
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-bold leading-[1.25] tracking-[-0.015em]">
-          {member.name}
-        </h3>
-        <p className="mt-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-bright">
-          {member.role}
-        </p>
-        {member.campus && (
-          <p className="mt-1 text-sm text-fg-subtle">{member.campus}</p>
-        )}
+        <h3 className="h-card">{member.name}</h3>
+        <p className="meta mt-3">{member.role}</p>
+        {member.campus && <p className="mt-1 text-[15px] text-fg-2">{member.campus}</p>}
       </div>
     </article>
   );

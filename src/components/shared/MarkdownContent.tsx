@@ -25,7 +25,7 @@ function renderInline(text: string): ReactNode[] {
           key={start}
           href={href}
           {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="text-primary-bright underline underline-offset-4 hover:text-fg"
+          className="text-link"
         >
           {label}
         </a>,
@@ -42,7 +42,7 @@ function renderInline(text: string): ReactNode[] {
 export function MarkdownContent({ children }: Props) {
   const paragraphs = children.split(/\n\s*\n/).filter((p) => p.trim());
   return (
-    <div className="space-y-4 text-[15px] leading-[1.7] text-fg-muted">
+    <div className="max-w-[60ch] space-y-4 text-base leading-[1.6] text-fg-2">
       {paragraphs.map((p, i) => (
         <p key={i} className="whitespace-pre-line">
           {renderInline(p.trim())}

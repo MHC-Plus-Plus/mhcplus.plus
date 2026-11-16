@@ -1,39 +1,44 @@
-import Link from "next/link";
 import { Container } from "@/components/shared/Container";
-import { Wordmark } from "@/components/shared/Wordmark";
 import { DISCORD_URL, EMAIL, GITHUB_URL, INSTAGRAM_URL, LINKEDIN_URL } from "@/lib/links";
 
 const externalLinks = [
+  { href: `mailto:${EMAIL}`, label: "Contact" },
   { href: DISCORD_URL, label: "Discord" },
   { href: GITHUB_URL, label: "GitHub" },
   { href: INSTAGRAM_URL, label: "Instagram" },
   { href: LINKEDIN_URL, label: "LinkedIn" },
-  { href: `mailto:${EMAIL}`, label: "Contact" },
 ];
 
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-border py-12">
-      <Container className="flex flex-wrap items-center justify-between gap-6">
-        <Wordmark size={15} />
-
-        <div className="text-[13px] text-fg-muted">
-          <div className="flex flex-wrap items-center gap-x-7 gap-y-2">
+    <footer className="overflow-hidden border-t border-line">
+      <Container className="pt-section">
+        <ul className="flex flex-wrap gap-3">
           {externalLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="transition-colors hover:text-primary-bright"
-            >
-              {l.label}
-            </Link>
+            <li key={l.href}>
+              <a
+                href={l.href}
+                {...(l.href.startsWith("mailto:")
+                  ? {}
+                  : { target: "_blank", rel: "noopener noreferrer" })}
+                className="btn btn-outline btn-sm"
+              >
+                {l.label}
+              </a>
+            </li>
           ))}
-          </div>
-        </div>
+        </ul>
 
-        <div className="font-mono text-[11px] tracking-[0.08em] text-fg-dim">
-          © {year} · MHCPLUS.PLUS
+        <p
+          aria-hidden
+          className="mt-[clamp(48px,7vw,96px)] select-none whitespace-nowrap font-heading text-[clamp(64px,22vw,380px)] font-extrabold leading-[0.82] tracking-[-0.07em] text-fg"
+        >
+          MHC<span className="text-accent">++</span>
+        </p>
+
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line py-6 font-mono text-xs uppercase tracking-[0.08em] text-fg-2">
+          <span>© {year} - MHCPLUS.PLUS</span>
         </div>
       </Container>
     </footer>

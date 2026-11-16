@@ -16,39 +16,22 @@ const items: Stat[] = [
 
 export function StatsBlock() {
   return (
-    <section className="pb-[120px]">
-      <Container>
-        <div className="relative grid grid-cols-1 overflow-hidden rounded-md border border-border bg-bg-elevated/60 backdrop-blur-md md:grid-cols-3">
-          {/* subtle top-down red tint */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(219,51,20,0.03) 0%, transparent 100%)",
-            }}
-          />
+    <section className="border-t border-line">
+      <Container className="py-section">
+        <div className="grid grid-cols-1 md:grid-cols-3">
           {items.map((s, i) => (
             <div
               key={s.label}
-              className={`relative p-8 transition-colors hover:bg-bg-card-hover ${
-                i < items.length - 1
-                  ? "border-b border-border md:border-b-0 md:border-r"
-                  : ""
+              className={`py-8 md:px-8 md:first:pl-0 ${
+                i < items.length - 1 ? "border-b border-line md:border-b-0 md:border-r" : ""
               }`}
             >
-              <div className="mb-[18px] flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-fg-subtle">
-                <span
-                  aria-hidden
-                  className="h-[5px] w-[5px] bg-primary shadow-[0_0_6px_var(--primary)]"
-                />
-                {s.label}
-              </div>
-              <div className="mb-3.5 text-[clamp(44px,7vw,56px)] font-extrabold leading-none tracking-[-0.04em] tabular-nums">
+              <p className="label">{s.label}</p>
+              <p className="mt-6 font-heading text-[clamp(56px,7vw,96px)] font-extrabold leading-[0.9] tracking-[-0.05em] tabular-nums">
                 {s.value}
-                {s.showPlus && <span className="text-primary-bright">+</span>}
-              </div>
-              <div className="text-sm text-fg-muted">{s.sub}</div>
+                {s.showPlus && <span className="text-accent">+</span>}
+              </p>
+              <p className="mt-4 text-[15px] text-fg-2">{s.sub}</p>
             </div>
           ))}
         </div>

@@ -5,26 +5,19 @@ import { NavLinks } from "@/components/layout/NavLinks";
 
 export function Nav() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-bg/75 backdrop-blur-md backdrop-saturate-150">
-      <Container className="flex h-[68px] items-center justify-between gap-4">
-        <Link href="/" aria-label="MHC++ home">
-          <Wordmark className="text-primary-bright"/>
+    <nav className="sticky top-0 z-50 border-b border-line bg-[var(--c-nav)] backdrop-blur-md">
+      <Container className="relative grid h-[var(--nav-h)] grid-cols-[1fr_auto] items-center gap-4 min-[760px]:grid-cols-[1fr_auto_1fr]">
+        <Link href="/" aria-label="MHC++ home" className="justify-self-start rounded-sm">
+          <Wordmark />
         </Link>
 
-        <NavLinks />
-
-        <Link
-          href="/join"
-          className="group inline-flex items-center gap-2.5 rounded-sm border border-border-strong px-[18px] py-[9px] text-sm font-semibold text-fg transition-all hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_24px_-8px_var(--primary)]"
-        >
-          Join us
-          <span
-            aria-hidden
-            className="text-primary transition-transform group-hover:translate-x-0.5"
-          >
-            →
-          </span>
-        </Link>
+        <NavLinks
+          cta={
+            <Link href="/join" className="btn btn-solid h-10 px-[18px] text-sm">
+              Join us →
+            </Link>
+          }
+        />
       </Container>
     </nav>
   );

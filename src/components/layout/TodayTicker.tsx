@@ -16,9 +16,9 @@ export async function TodayTicker() {
   }
 
   return (
-    <div className="relative z-[1] flex w-full items-stretch border-b border-border bg-bg-elevated overflow-hidden">
-      <div className="relative z-10 flex items-center bg-primary px-5 py-1 text-base font-mono font-bold uppercase tracking-wider text-white shadow-[4px_0_12px_rgba(0,0,0,0.5)]">
-        TODAY
+    <div className="flex w-full items-stretch overflow-hidden border-b border-line bg-surface">
+      <div className="relative z-10 flex items-center bg-accent px-5 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-bg">
+        Today
       </div>
       <div className="ticker-viewport flex-1 overflow-x-hidden">
         <div
@@ -36,7 +36,7 @@ export async function TodayTicker() {
 function TickerList({ events, "aria-hidden": ariaHidden }: { events: CalendarEvent[]; "aria-hidden"?: "true" }) {
   return (
     <div
-      className="flex min-w-full sm:min-w-[100vw] items-center justify-around gap-8 px-8 py-3.5"
+      className="flex min-w-full items-center justify-around gap-8 px-8 py-3 sm:min-w-[100vw]"
       aria-hidden={ariaHidden}
     >
       {events.map((event) => {
@@ -49,13 +49,14 @@ function TickerList({ events, "aria-hidden": ariaHidden }: { events: CalendarEve
             href={url}
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noopener noreferrer" : undefined}
-            className="group flex flex-none items-center gap-2 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated rounded-sm"
+            tabIndex={ariaHidden ? -1 : undefined}
+            className="group flex flex-none items-center gap-3 whitespace-nowrap rounded-sm focus-visible:outline-offset-0"
           >
-            <span className="font-sans text-xl font-semibold text-primary-bright group-hover:text-fg transition-colors">
+            <span className="font-heading text-lg font-semibold tracking-[-0.03em] text-fg transition-colors duration-150 group-hover:text-fg-2">
               {event.title}
             </span>
-            <span className="text-fg-subtle">/</span>
-            <span className="font-mono text-base text-fg-muted">
+            <span aria-hidden className="text-fg-2">/</span>
+            <span className="font-mono text-xs uppercase tracking-[0.08em] text-fg-2">
               {clock.format(new Date(event.start))}
             </span>
           </Link>
