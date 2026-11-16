@@ -14,23 +14,23 @@ type Props = {
 
 /**
  * Left date column of an event card: "FRI - NOV", a huge day number, and the
- * start time. Horizontal on phones, a fixed-width column with a vertical
- * hairline from md up.
+ * start time, always stacked. Sits above the card body on phones, and is a
+ * fixed-width column with a vertical hairline from md up.
  */
 export function EventDate({ event, className }: Props) {
   const d = new Date(event.start);
   return (
     <div
       className={cn(
-        "flex shrink-0 items-end justify-between gap-4 border-b border-line px-6 py-5",
-        "md:w-[168px] md:flex-col md:items-start md:justify-between md:border-b-0 md:border-r md:py-6",
+        "flex shrink-0 flex-col items-start gap-3 border-b border-line px-6 py-5",
+        "md:w-[168px] md:justify-between md:gap-4 md:border-b-0 md:border-r md:py-6",
         className,
       )}
     >
       <span className="font-mono text-xs font-medium uppercase tracking-[0.08em] text-accent">
         {weekday.format(d)} - {month.format(d)}
       </span>
-      <span className="order-first font-heading text-[clamp(56px,6vw,80px)] font-extrabold leading-[0.85] tracking-[-0.05em] tabular-nums text-fg md:order-none">
+      <span className="font-heading text-[clamp(56px,6vw,80px)] font-extrabold leading-[0.85] tracking-[-0.05em] tabular-nums text-fg">
         {day.format(d)}
       </span>
       <span className="font-mono text-xs uppercase tracking-[0.08em] text-fg-2">
